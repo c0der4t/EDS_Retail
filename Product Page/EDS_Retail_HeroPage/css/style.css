@@ -176,3 +176,13 @@ body {
     height: 60px;
     background-color: #eff3ff;
 }
+
+@media only screen and (max-width: 425px){
+	/*Small smartphones [325px -> 425px]*/
+
+    .mobbreak{
+        display: none;
+    }
+
+}
+
