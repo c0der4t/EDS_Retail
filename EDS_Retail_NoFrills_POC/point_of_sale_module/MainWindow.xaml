@@ -31,8 +31,13 @@
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="1" Grid.Row="1" x:Name="lblCurrentSaleInfo" Text="Current Sale Info" FontSize="18"/>
-            <DataGrid Grid.Column="1" Grid.Row="2"/>
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <TextBlock  x:Name="lblCurrentSaleInfo" Text="Current Sale Info" FontSize="18" HorizontalAlignment="Left"/>
+                <TextBlock  x:Name="lblCurrentSaleTotal" Text="$0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
+            </StackPanel>
+            
+            <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2"/>
 
         </Grid>
 
@@ -77,9 +82,9 @@
 
                     <TextBox x:Name="edtQtyNumber" Grid.Column="0" Width="70" Height="Auto" Margin="0,0,10,0"/>
                     <StackPanel Orientation="Horizontal" Grid.Column="1" >
-                        <Button x:Name="btnQtyQuickButton1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="2"/>
-                        <Button x:Name="btnQtyQuickButton2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="3"/>
-                        <Button x:Name="btnQtyQuickButton3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="4"/>
+                        <Button x:Name="btnQtyQuickButton1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="2" Click="btnQtyQuickButton1_Click"/>
+                        <Button x:Name="btnQtyQuickButton2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="3" Click="btnQtyQuickButton2_Click"/>
+                        <Button x:Name="btnQtyQuickButton3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="4" Click="btnQtyQuickButton3_Click"/>
 
                     </StackPanel>
                     
@@ -101,7 +106,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Code/SKU" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
-                <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto"/>
+                <TextBox x:Name="edtSKU" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto" KeyDown="edtSKU_KeyDown"/>
                 <Button x:Name="btnLookupSKU" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Width="50" Height="auto">🔍</Button>
 
             </Grid>
@@ -123,7 +128,7 @@
                 
                 <TextBox x:Name="edtPrice" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto"/>
 
-                <Button x:Name="btnChangePrice" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Width="100" Height="auto" HorizontalAlignment="Left" Content="Change"/>
+                <Button x:Name="btnChangePrice" Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Width="100" Height="auto" HorizontalAlignment="Left" Content="Change" Click="btnChangePrice_Click"/>
 
             </Grid>
 
@@ -139,7 +144,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="Description" Grid.Row="0"/>
-                <RichTextBox Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100"/>
+                <RichTextBox x:Name="redtProductDescr" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100"/>
 
             </Grid>
 
