@@ -1,0 +1,176 @@
+﻿<Window x:Class="EDS_MVVM_Test.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EDS_MVVM_Test.Views"
+        mc:Ignorable="d"
+        Title="ShellView" Height="450" Width="800">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Digital Slip Preview / Sale tracking -->
+        <Grid Grid.Column="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Current Sale Info" FontSize="18" HorizontalAlignment="Left"/>
+                <TextBlock  Text="$0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
+            </StackPanel>
+
+            <DataGrid Grid.Column="1" Grid.Row="2"/>
+
+        </Grid>
+
+        <!-- POS Action Panel -->
+        <Grid Grid.Column="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="1" Grid.Row="1" Margin="3">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="QTY" Grid.Row="0"/>
+
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Width="70" Height="Auto" Margin="0,0,10,0"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="2"/>
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="3"/>
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="30" Height="Auto" Content="4"/>
+
+                    </StackPanel>
+
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="2" Margin="3">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Code/SKU" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
+                <TextBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto" />
+                <Button Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Width="50" Height="auto">🔍</Button>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="3" Margin="3">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="177*"/>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="137*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Price" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,20" Grid.RowSpan="2"/>
+
+
+                <TextBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Height="Auto"/>
+
+                <Button Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Width="100" Height="auto" HorizontalAlignment="Left" Content="Change" Grid.ColumnSpan="2"/>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="4" Margin="3">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Description" Grid.Row="0"/>
+                <RichTextBox Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100"/>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="5">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Margin="5,0,5,0" Width="60" Height="40" Content="Logout"/>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <Button Margin="5,0,5,0" Width="60" Height="40" Content="Void Line"/>
+                    <Button Margin="5,0,5,0" Width="60" Height="40" Content="Void Sale"/>
+                    <Button Margin="5,0,5,0" Width="60" Height="40" Content="Process"/>
+                </StackPanel>
+
+
+
+            </Grid>
+
+
+        </Grid>
+
+    </Grid>
+
+
+</Window>
