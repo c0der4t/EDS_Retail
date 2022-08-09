@@ -5,4 +5,4 @@
 Review the license here https://github.com/c0der4t/EDS_Retail/blob/main/LICENSE
 
 ### Read about this project here:
-(EDS Retail - Intro)[https://blog.ekronds.co.za/introducing-eds-retail]
+![EDS Retail - Intro](https://blog.ekronds.co.za/introducing-eds-retail)
