@@ -36,8 +36,17 @@
                 <TextBlock  x:Name="lblCurrentSaleInfo" Text="Current Sale Info" FontSize="18" HorizontalAlignment="Left"/>
                 <TextBlock  x:Name="lblCurrentSaleTotal" Text="$0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
             </StackPanel>
-            
-            <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2"/>
+
+            <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="SKU" Width="65" Binding="{Binding SKU}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="QTY" Width="40" Binding="{Binding QTY}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Price" Width="70" Binding="{Binding Price}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Descript" Width="150" Binding="{Binding Descript}"></DataGridTextColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
 
         </Grid>
 

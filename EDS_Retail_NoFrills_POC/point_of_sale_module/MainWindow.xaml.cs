@@ -1,19 +1,9 @@
-﻿using System;
+﻿using point_of_sale_module.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace point_of_sale_module
 {
@@ -22,24 +12,19 @@ namespace point_of_sale_module
     /// </summary>
     public partial class MainWindow : Window
     {
-        IEnumerable<DataTable> ActiveSale;
+        ActiveSale vActiveSale;
 
         public MainWindow()
         {
             InitializeComponent();
-            NewSale();
+            vActiveSale = new ActiveSale();
         }
 
         private void NewSale()
         {
-            ActiveSale.Columns.Add("SKU");
-            ActiveSale.Columns.Add("QTY");
-            ActiveSale.Columns.Add("Price");
-            ActiveSale.Columns.Add("Descr");
 
             dbgActiveSaleInfo.AutoGenerateColumns = true;
             dbgActiveSaleInfo.Columns.Clear();
-            dbgActiveSaleInfo.ItemsSource = ActiveSale;
             NewSKU();
         }
 
@@ -74,19 +59,12 @@ namespace point_of_sale_module
 
         private void edtSKU_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-                var NewSaleItem = ActiveSale.NewRow();
+            var NewLineItem = new SaleLineItem();
+            NewLineItem.addToSale(edtSKU.Text, edtQtyNumber.Text, edtPrice.Text, redtProductDescr.Document.ToString());
 
-                NewSaleItem[0] = edtSKU.Text ;
-                NewSaleItem[0] = edtQtyNumber.Text ;
-                NewSaleItem[0] = edtPrice.Text;
-                NewSaleItem[0] = redtProductDescr.Document.Blocks.ToString();
+            vActiveSale.LineItem = NewLineItem;
 
-                ActiveSale.Rows.Add(NewSaleItem);
-
-                NewSKU();
-            }
+            NewSKU();
         }
     }
 }
