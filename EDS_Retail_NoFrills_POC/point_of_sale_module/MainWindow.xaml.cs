@@ -12,29 +12,53 @@ namespace point_of_sale_module
     /// </summary>
     public partial class MainWindow : Window
     {
-        ActiveSale vActiveSale;
+        private List<SaleLineItem> _activeSale;
 
         public MainWindow()
         {
             InitializeComponent();
-            vActiveSale = new ActiveSale();
+
+            _activeSale = new List<SaleLineItem>();
+            dbgActiveSaleInfo.ItemsSource = _activeSale;
+
+            NewSale();
         }
 
         private void NewSale()
         {
-
+            _activeSale.Clear();
             dbgActiveSaleInfo.AutoGenerateColumns = true;
             dbgActiveSaleInfo.Columns.Clear();
-            NewSKU();
+            NewLineItem();
         }
 
-        private void NewSKU()
+        private void NewLineItem()
         {
             edtQtyNumber.Text = "1";
-            edtSKU.Text = String.Empty;
-            edtPrice.Text = String.Empty;
-            redtProductDescr.Document.Blocks.Clear();
+            edtSKU.Clear();
+            edtPrice.Clear();
+            edtProductDescr.Clear();
             edtSKU.Focus();
+        }
+
+
+        private void edtSKU_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var currLineItem = new SaleLineItem();
+                currLineItem.addToSale(edtSKU.Text, edtQtyNumber.Text, edtPrice.Text, edtProductDescr.Text);
+
+                _activeSale.Add(currLineItem);
+
+                dbgActiveSaleInfo.ItemsSource = null;
+                dbgActiveSaleInfo.ItemsSource = _activeSale;
+
+                NewLineItem();
+            }
+
+
+
         }
 
         private void btnQtyQuickButton1_Click(object sender, RoutedEventArgs e)
@@ -57,14 +81,9 @@ namespace point_of_sale_module
             MessageBox.Show("The price may not be changed at this time");
         }
 
-        private void edtSKU_KeyDown(object sender, KeyEventArgs e)
+        private void btnProcess_Click(object sender, RoutedEventArgs e)
         {
-            var NewLineItem = new SaleLineItem();
-            NewLineItem.addToSale(edtSKU.Text, edtQtyNumber.Text, edtPrice.Text, redtProductDescr.Document.ToString());
-
-            vActiveSale.LineItem = NewLineItem;
-
-            NewSKU();
+            NewSale();
         }
     }
 }
