@@ -34,10 +34,10 @@
 
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                 <TextBlock  x:Name="lblCurrentSaleInfo" Text="Current Sale Info" FontSize="18" HorizontalAlignment="Left"/>
-                <TextBlock  x:Name="lblCurrentSaleTotal" Text="$0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
+                <TextBlock  x:Name="lblCurrentSaleTotal" Text="0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
             </StackPanel>
 
-            <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2">
+            <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False">
             </DataGrid>
 
         </Grid>
