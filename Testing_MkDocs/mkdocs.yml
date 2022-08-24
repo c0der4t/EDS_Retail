@@ -1,0 +1,9 @@
+site_name: EDS Retail
+theme:
+  name: material
+nav:
+    - 'index.md'
+    - 'license.md'
+    - './modules/modulelist.md'
+    - './modules/pos.md'
+    - './modules/stock.md'
