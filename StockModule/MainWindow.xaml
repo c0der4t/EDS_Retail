@@ -1,0 +1,48 @@
+﻿<Window x:Class="StockModule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockModule"
+        mc:Ignorable="d"
+        Title="StockModule" Height="450" Width="800" Closing="Window_Closing">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="535*"/>
+            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition Width="234*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <!-- Digital Slip Preview / Sale tracking -->
+        <Grid Grid.Column="0" Grid.ColumnSpan="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                <Button Content="Add Item" Margin="5,0,5,0" Padding="5"/>
+                <Button Content="Edit Selected" Margin="5,0,5,0" Padding="5"/>
+                <Button Content="Delete Selected" Margin="5,0,5,0" Padding="5"/>
+            </StackPanel>
+
+            <DataGrid x:Name="dbgStock" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False">
+            </DataGrid>
+
+        </Grid>
+
+
+    </Grid>
+</Window>
