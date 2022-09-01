@@ -33,9 +33,11 @@
 
 
             <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                <Button Content="Add Item" Margin="5,0,5,0" Padding="5"/>
-                <Button Content="Edit Selected" Margin="5,0,5,0" Padding="5"/>
-                <Button Content="Delete Selected" Margin="5,0,5,0" Padding="5"/>
+                <Button x:Name="btnAddStockItem" Content="Add Item" Margin="5,0,5,0" Padding="5" Click="btnAddStockItem_Click"/>
+                <Button x:Name="btnEditStockItem" Content="Edit Selected" Margin="5,0,5,0" Padding="5" Click="btnEditStockItem_Click"/>
+                <Button x:Name="btnDeleteSelectedItem" Content="Delete Selected" Margin="5,0,5,0" Padding="5" Click="btnDeleteSelectedItem_Click"/>
+                <Button x:Name="btnSaveStockFile" Content="Save Stock File" Margin="5,0,5,0" Padding="5" Click="btnSaveStockFile_Click"/>
+                <Button x:Name="btnReloadStockFile" Content="Reload Stock File" Margin="5,0,5,0" Padding="5" Click="btnReloadStockFile_Click"/>
             </StackPanel>
 
             <DataGrid x:Name="dbgStock" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False">

@@ -21,7 +21,7 @@ namespace StockModule
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<StockItem> _stockList = new List<StockItem>();
+        public List<StockItem> _stockList = new List<StockItem>();
         private List<string> _comments = new List<string>();
         private static string _flatFileDelimeter = "#";
 
@@ -30,8 +30,7 @@ namespace StockModule
         {
             InitializeComponent();
             dbgStock.AutoGenerateColumns = true;
-            dbgStock.Columns.Clear();
-
+            RefreshDataGrid();
             LoadStockFile(@"c:\temp\stock000.txt");
         }
 
@@ -41,15 +40,26 @@ namespace StockModule
             currStockItem.addStockItem(_sku, _qtyonhand, _price, _descr);
 
             _stockList.Add(currStockItem);
+            RefreshDataGrid();
+
+
+        }
+
+        public void RefreshDataGrid()
+        {
+           
+            dbgStock.Columns.Clear();
 
             dbgStock.ItemsSource = null;
             dbgStock.ItemsSource = _stockList;
-
         }
 
         private void LoadStockFile(string _pathToStockFile)
         {
-            _comments.Clear(); 
+            
+
+            _comments.Clear();
+            _stockList.Clear();
 
             if (File.Exists(_pathToStockFile) == true)
             {
@@ -112,7 +122,7 @@ namespace StockModule
 
                             ImportStocktoGrid(_sku, _qtyonhand, _price, _descr);
                         }
-                      
+
 
                     }
                 }
@@ -123,34 +133,84 @@ namespace StockModule
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            File.Delete(@"c:\temp\stock000.txt");
-            
+            SaveStockFile(@"c:\temp\stock000.txt");
+
+        }
+
+
+        private void SaveStockFile(string _pathToStockFile)
+        {
+
+            File.Delete(_pathToStockFile);
+
 
             foreach (string currComment in _comments)
             {
                 //Save stock list to file
-                using (StreamWriter _stockListFile = new StreamWriter(@"c:\temp\stock000.txt", append: true))
+                using (StreamWriter _stockListFile = new StreamWriter(_pathToStockFile, append: true))
                 {
                     _stockListFile.WriteLine(currComment);
                 }
             }
 
-            int loopCounter = 0;
+            using (StreamWriter _stockListFile = new StreamWriter(_pathToStockFile, append: true))
+            {
+                _stockListFile.WriteLine("code#onhand#retailsprice#description");
+            }
+
             foreach (StockItem _stockItem in _stockList)
             {
 
-                loopCounter += 1;
 
-                string _currLine = loopCounter > 1 ? $"{_stockItem.Product_SKU}#{_stockItem.Qty_OnHand}#{_stockItem.RetailPrice}#{_stockItem.Item_Description}" : "code#onhand#retailsprice#description";
+                string _currLine = $"{_stockItem.Product_SKU}#{_stockItem.Qty_OnHand}#{_stockItem.RetailPrice}#{_stockItem.Item_Description}";
 
                 //Save stock list to file
-                using (StreamWriter _stockListFile = new StreamWriter(@"c:\temp\stock000.txt", append: true))
+                using (StreamWriter _stockListFile = new StreamWriter(_pathToStockFile, append: true))
                 {
                     _stockListFile.WriteLine(_currLine);
                 }
             }
-            
 
+
+        }
+
+
+        private void btnAddStockItem_Click(object sender, RoutedEventArgs e)
+        {
+            frmStockEntry StockEntryForm = new frmStockEntry();
+            StockEntryForm.WindowTitle = "Add New Stock Item";
+            StockEntryForm.NewStockItem(this);
+            StockEntryForm.Show();
+
+        }
+
+        private void btnEditStockItem_Click(object sender, RoutedEventArgs e)
+        {
+            frmStockEntry StockEntryForm = new frmStockEntry();
+            StockEntryForm.WindowTitle = $"Edit Item {_stockList[dbgStock.SelectedIndex].Product_SKU}";
+
+            StockEntryForm.LoadStockItem(_stockList[dbgStock.SelectedIndex], dbgStock.SelectedIndex, this);
+            StockEntryForm.Show();
+        }
+
+        private void btnSaveStockFile_Click(object sender, RoutedEventArgs e)
+        {
+            SaveStockFile(@"c:\temp\stock000.txt");
+        }
+
+        private void btnReloadStockFile_Click(object sender, RoutedEventArgs e)
+        {
+            LoadStockFile(@"c:\temp\stock000.txt");
+        }
+
+        private void btnDeleteSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (dbgStock.SelectedIndex < _stockList.Count)
+            {
+                _stockList.RemoveAt(dbgStock.SelectedIndex);
+                RefreshDataGrid();
+            }
+            
         }
     }
 }

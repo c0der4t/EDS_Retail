@@ -4,7 +4,7 @@ using System.Text;
 
 namespace StockModule
 {
-    internal class StockItem
+    public class StockItem
     {
         private string _sku;
         private string _qtyonhand;
