@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="FastReportsTest_Avaloniaui.MainWindow"
+        Title="FastReportsTest_Avaloniaui">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="187*"/>
+      <RowDefinition Height="247*"/>
+    </Grid.RowDefinitions>
+    <Button Content="Button" HorizontalAlignment="Left" Margin="199,172,0,0" VerticalAlignment="Top" Grid.RowSpan="2" Click="Button_Click"/>
+    <Button Content="LoadFromFile" HorizontalAlignment="Left" Margin="352,94,0,0" VerticalAlignment="Top" Click="btnLoadFromFile_Click"/>
+
+  </Grid>
+</Window>

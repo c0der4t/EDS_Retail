@@ -1,0 +1,53 @@
+﻿<Window x:Class="LoginModule.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LoginModule"
+        mc:Ignorable="d"
+        Title="EDS Retail - Login" Height="200" Width="350">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="1" 
+                   Grid.Column="1" 
+                   Text="User Login"
+                   HorizontalAlignment="Center"
+                   FontSize="16"/>
+        <StackPanel Grid.Row="2" 
+                   Grid.Column="1"
+                    Orientation="Vertical"
+                    Margin="5,5,5,5">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Username"/>
+                <TextBox x:Name="edtUsername"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="Password"/>
+                <PasswordBox x:Name="edtPassword"/>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <Button Grid.Row="3" 
+                Grid.Column="1"
+                x:Name="btnLogin" 
+                Content="Login"
+                Click="btnLogin_Click"/>
+
+    </Grid>
+</Window>
