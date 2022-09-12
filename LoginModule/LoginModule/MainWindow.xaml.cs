@@ -31,6 +31,7 @@ namespace LoginModule
             return getHashFromString(passwordToCompare) == hashToCompareTo ? true : false;
         }
 
+
         private string getHashFromString(string rawString)
         {
             SHA256 sHA256 = SHA256.Create();
