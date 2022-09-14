@@ -1,7 +1,7 @@
 # EDS Retail
 
-### Active development on [InitialPOC branch](https://github.com/c0der4t/EDS_Retail/tree/InitialPOC)
-### [See detailed project items/plans here](https://github.com/users/c0der4t/projects/3/views/1)
+### Active development on [Alpha-dev branch](https://github.com/ekronds/EDS_Retail/tree/alpha-de)
+### [See detailed project items/plans here](https://github.com/orgs/ekronds/projects/1/views/1)
 ## 🤷‍♂️ What is EDS Retail?
 
 EDS Retail is a free and open source retail system for small / medium-sized businesses.
