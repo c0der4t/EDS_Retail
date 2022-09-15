@@ -1,0 +1,2 @@
+﻿This models folder contains all our models for the database tabels
+Refer here: https://docs.microsoft.com/en-us/ef/core/get-started/wpf

@@ -1,0 +1,7 @@
+Navigation screen
+	Tiles to Mods
+SQLite - DB
+POS module
+Stock module
+Login module
+Settings module
