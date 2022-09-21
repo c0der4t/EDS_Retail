@@ -20,9 +20,13 @@ namespace mainModules
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string appLocation { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            appLocation = $"{System.Environment.GetCommandLineArgs()[0]}\\img\\POS.png";
         }
     }
 }

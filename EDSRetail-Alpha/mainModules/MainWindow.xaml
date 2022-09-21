@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="EDSRetail - Navigation" Height="450" Width="800">
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+
+        <WrapPanel Grid.Row="1" Grid.Column="1">
+            
+            <StackPanel x:Name="spnlPOS">
+                <Image Stretch="Fill" Width="64" Height="64">
+                    <Image.Source>
+                        <BitmapImage DecodePixelWidth="64"  UriSource="./img/POS.png"/>
+                    </Image.Source>
+                </Image>
+                <TextBlock Text="POS" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel x:Name="spnlStock">
+                <Image Source="/img/StockMgmt.png" Stretch="Fill" Width="64" Height="64"/>
+                <TextBlock Text="Manage Stock" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel x:Name="spnlSettings">
+                <Image Source="/img/Settings.png" Stretch="Fill" Width="64" Height="64"/>
+                <TextBlock Text="Settings" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+
+        </WrapPanel>
+        
     </Grid>
+    
 </Window>
