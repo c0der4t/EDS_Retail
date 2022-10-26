@@ -21,29 +21,14 @@
         </Grid.ColumnDefinitions>
 
 
-        <WrapPanel Grid.Row="1" Grid.Column="1">
-            
-            <StackPanel x:Name="spnlPOS">
-                <Image Stretch="Fill" Width="64" Height="64">
-                    <Image.Source>
-                        <BitmapImage DecodePixelWidth="64"  UriSource="./img/POS.png"/>
-                    </Image.Source>
-                </Image>
-                <TextBlock Text="POS" HorizontalAlignment="Center"/>
-            </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
 
-            <StackPanel x:Name="spnlStock">
-                <Image Source="/img/StockMgmt.png" Stretch="Fill" Width="64" Height="64"/>
-                <TextBlock Text="Manage Stock" HorizontalAlignment="Center"/>
-            </StackPanel>
-
-            <StackPanel x:Name="spnlSettings">
-                <Image Source="/img/Settings.png" Stretch="Fill" Width="64" Height="64"/>
-                <TextBlock Text="Settings" HorizontalAlignment="Center"/>
-            </StackPanel>
+            <Button x:Name="btnPOS" Content="Point of Sale" Click="btnPOS_Click"/>
+            <Button x:Name="btnStock" Content="Stock" Click="btnStock_Click"/>
+            <Button x:Name="btnSettings" Content="Settings" Click="btnSettings_Click"/>
 
 
-        </WrapPanel>
+        </StackPanel>
         
     </Grid>
     

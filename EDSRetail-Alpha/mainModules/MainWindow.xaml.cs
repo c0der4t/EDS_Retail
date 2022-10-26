@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace mainModules
 {
@@ -26,7 +27,23 @@ namespace mainModules
         {
             InitializeComponent();
 
-            appLocation = $"{System.Environment.GetCommandLineArgs()[0]}\\img\\POS.png";
+        }
+
+        private void btnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Opening Settings");
+        }
+
+        private void btnStock_Click(object sender, RoutedEventArgs e)
+        {
+            stock_mgmt _stockMgmt = new stock_mgmt();
+            _stockMgmt.Show();
+        }
+
+        private void btnPOS_Click(object sender, RoutedEventArgs e)
+        {
+           point_of_sale _posWindow = new point_of_sale();
+            _posWindow.Show();
         }
     }
 }
