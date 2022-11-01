@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
-        Title="EDSRetail - Navigation" Height="450" Width="800">
+        Title="EDSRetail - Navigation" Height="450" Width="500">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -21,11 +21,18 @@
         </Grid.ColumnDefinitions>
 
 
+        
+        
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-
+            <TextBlock Text="Welcome, c0der4t" 
+                       Grid.Row="1" Grid.Column="1"
+                       Margin="5,5,5,5" Padding="2,2,2,2"
+                       FontSize="32"/>
+            
             <Button x:Name="btnPOS" Content="Point of Sale" Click="btnPOS_Click"/>
             <Button x:Name="btnStock" Content="Stock" Click="btnStock_Click"/>
             <Button x:Name="btnSettings" Content="Settings" Click="btnSettings_Click"/>
+            <Button x:Name="btnLogout" Content="Logout" Click="btnLogout_Click"/>
 
 
         </StackPanel>

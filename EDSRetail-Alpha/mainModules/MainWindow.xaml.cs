@@ -22,16 +22,26 @@ namespace mainModules
     public partial class MainWindow : Window
     {
         public string appLocation { get; set; }
+        public bool isUserAuthenticated { get; set; }
+
 
         public MainWindow()
         {
             InitializeComponent();
+            CheckUserAuth();
+        }
+
+        private void CheckUserAuth()
+        {
+            frmUserLogin loginscreen = new frmUserLogin();
+            loginscreen.ShowDialog();
 
         }
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Opening Settings");
+            frmsettings_main _settings_screen = new frmsettings_main();
+            _settings_screen.Show();
         }
 
         private void btnStock_Click(object sender, RoutedEventArgs e)
@@ -44,6 +54,11 @@ namespace mainModules
         {
            point_of_sale _posWindow = new point_of_sale();
             _posWindow.Show();
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
