@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\databaseAPI\databaseAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="img.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
