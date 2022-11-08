@@ -19,7 +19,7 @@ namespace mainModules
         public MainWindow()
         {
             InitializeComponent();
-            CheckUserAuth();
+           // CheckUserAuth();
             InitDB();
 
         }

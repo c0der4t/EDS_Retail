@@ -3,16 +3,12 @@ using System.IO;
 
 namespace mainModules
 {
-    public class SalesContext : DbContext
+    public class SettingsContext : DbContext
     {
-        string DBDirectory = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory,"db");
+        string DBDirectory = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db");
 
 
-        public DbSet<databaseAPI.Models.Sale> Sales { get; set; }
-        public DbSet<databaseAPI.Models.Stock> Stock { get; set; }
-        public DbSet<databaseAPI.Models.User> Users { get; set; }
         public DbSet<databaseAPI.Models.Settings> Settings { get; set; }
-        public DbSet<databaseAPI.Models.SystemAudit> SystemAudit { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)

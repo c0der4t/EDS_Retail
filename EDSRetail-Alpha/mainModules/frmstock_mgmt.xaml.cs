@@ -6,14 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace mainModules
 {
@@ -26,13 +19,15 @@ namespace mainModules
         private List<string> _comments = new List<string>();
         private static string _flatFileDelimeter = "#";
 
+        private StockContext _contextStock =
+           new StockContext();
 
         public stock_mgmt()
         {
             InitializeComponent();
             dbgStock.AutoGenerateColumns = true;
             RefreshDataGrid();
-            LoadStockFile(@"c:\temp\stock000.txt");
+            InitDB();
         }
 
         private void ImportStocktoGrid(string _sku, string _qtyonhand, string _price, string _descr)
@@ -55,83 +50,7 @@ namespace mainModules
             dbgStock.ItemsSource = _stockList;
         }
 
-        private void LoadStockFile(string _pathToStockFile)
-        {
-
-
-            _comments.Clear();
-            _stockList.Clear();
-
-            if (File.Exists(_pathToStockFile) == true)
-            {
-                //Load file
-                string currLine = "";
-                int lineCount = 0;
-
-                using (StreamReader _stockFlatFile = new StreamReader(_pathToStockFile))
-                {
-                    while ((currLine = _stockFlatFile.ReadLine()) != null)
-                    {
-                        lineCount = currLine[0] != '#' ? lineCount += 1 : lineCount = lineCount;
-
-                        if (currLine[0] == '#')
-                        {
-                            _comments.Add(currLine);
-                        }
-
-                        //Checks if we are on line on
-                        //If so, skips import
-                        //Line one is headings line
-                        if ((lineCount > 1) && (currLine[0] != '#'))
-                        {
-                            string _sku = "";
-                            string _qtyonhand = "";
-                            string _price = "";
-                            string _descr = "";
-
-                            int lengthCurrLine = currLine.Length;
-                            int colNumber = 0;
-
-
-                            while (lengthCurrLine > 0)
-                            {
-                                colNumber += 1;
-                                int indexOfDelimeter = currLine.IndexOf(_flatFileDelimeter) > -1 ? currLine.IndexOf(_flatFileDelimeter) : lengthCurrLine;
-                                string currColValue = currLine.Substring(0, indexOfDelimeter);
-
-                                currLine = currLine.IndexOf(_flatFileDelimeter) > -1 ? currLine.Substring(currColValue.Length + _flatFileDelimeter.Length) : "";
-                                lengthCurrLine = currLine.Length;
-
-                                switch (colNumber)
-                                {
-                                    case 1:
-                                        _sku = currColValue;
-                                        break;
-                                    case 2:
-                                        _qtyonhand = currColValue;
-                                        break;
-                                    case 3:
-                                        _price = currColValue;
-                                        break;
-                                    case 4:
-                                        _descr = currColValue;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-
-                            ImportStocktoGrid(_sku, _qtyonhand, _price, _descr);
-                        }
-
-
-                    }
-                }
-
-            }
-
-        }
-
+        
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveStockFile(@"c:\temp\stock000.txt");
@@ -204,7 +123,7 @@ namespace mainModules
 
         private void btnReloadStockFile_Click(object sender, RoutedEventArgs e)
         {
-            LoadStockFile(@"c:\temp\stock000.txt");
+            //Reload DB using EF Core
         }
 
         private void btnDeleteSelectedItem_Click(object sender, RoutedEventArgs e)
@@ -217,6 +136,13 @@ namespace mainModules
 
         }
 
+
+        private void InitDB()
+        {
+            //TODO : Always ensure the DB folder exists
+            _contextStock.Database.EnsureCreated();
+            _contextStock.Stock.Load();
+        }
 
     }
 }
