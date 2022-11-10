@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using System.Windows.Data;
 
 namespace mainModules
 {
@@ -22,12 +23,15 @@ namespace mainModules
         private StockContext _contextStock =
            new StockContext();
 
+        private CollectionViewSource stockViewSource;
+
         public stock_mgmt()
         {
             InitializeComponent();
-            dbgStock.AutoGenerateColumns = true;
-            RefreshDataGrid();
-            InitDB();
+
+            stockViewSource =
+                (CollectionViewSource)FindResource(nameof(stockViewSource));
+
         }
 
         private void ImportStocktoGrid(string _sku, string _qtyonhand, string _price, string _descr)
@@ -43,56 +47,27 @@ namespace mainModules
 
         public void RefreshDataGrid()
         {
-
-            dbgStock.Columns.Clear();
-
-            dbgStock.ItemsSource = null;
-            dbgStock.ItemsSource = _stockList;
+            dbgStock.Items.Refresh();
         }
 
         
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            SaveStockFile(@"c:\temp\stock000.txt");
-
+            // clean up database connections
+            _contextStock.Dispose();
+            base.OnClosing(e);
         }
 
 
-        private void SaveStockFile(string _pathToStockFile)
+        private void SaveStockFile()
         {
 
-            //ToDo: File not found exception
-            File.Delete(_pathToStockFile);
+            // all changes are automatically tracked, including
+            // deletes!
+            _contextStock.SaveChanges();
 
-
-            foreach (string currComment in _comments)
-            {
-                //Save stock list to file
-                using (StreamWriter _stockListFile = new StreamWriter(_pathToStockFile, append: true))
-                {
-                    _stockListFile.WriteLine(currComment);
-                }
-            }
-
-            using (StreamWriter _stockListFile = new StreamWriter(_pathToStockFile, append: true))
-            {
-                _stockListFile.WriteLine("code#onhand#retailsprice#description");
-            }
-
-            foreach (StockItem _stockItem in _stockList)
-            {
-
-
-                string _currLine = $"{_stockItem.Product_SKU}#{_stockItem.Qty_OnHand}#{_stockItem.RetailPrice}#{_stockItem.Item_Description}";
-
-                //Save stock list to file
-                using (StreamWriter _stockListFile = new StreamWriter(_pathToStockFile, append: true))
-                {
-                    _stockListFile.WriteLine(_currLine);
-                }
-            }
-
-
+            // this forces the grid to refresh to latest values
+            dbgStock.Items.Refresh();
         }
 
 
@@ -118,12 +93,13 @@ namespace mainModules
 
         private void btnSaveStockFile_Click(object sender, RoutedEventArgs e)
         {
-            SaveStockFile(@"c:\temp\stock000.txt");
+            SaveStockFile();
         }
 
         private void btnReloadStockFile_Click(object sender, RoutedEventArgs e)
         {
-            //Reload DB using EF Core
+            stockViewSource.Source = null;
+            InitDB();
         }
 
         private void btnDeleteSelectedItem_Click(object sender, RoutedEventArgs e)
@@ -142,6 +118,15 @@ namespace mainModules
             //TODO : Always ensure the DB folder exists
             _contextStock.Database.EnsureCreated();
             _contextStock.Stock.Load();
+
+            // bind to the source
+            stockViewSource.Source =
+                _contextStock.Stock.Local.ToObservableCollection();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitDB();
         }
 
     }
