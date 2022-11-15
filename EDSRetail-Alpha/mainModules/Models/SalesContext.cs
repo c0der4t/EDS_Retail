@@ -10,9 +10,7 @@ namespace mainModules
 
         public DbSet<databaseAPI.Models.Sale> Sales { get; set; }
         public DbSet<databaseAPI.Models.Stock> Stock { get; set; }
-        public DbSet<databaseAPI.Models.User> Users { get; set; }
         public DbSet<databaseAPI.Models.Settings> Settings { get; set; }
-        public DbSet<databaseAPI.Models.SystemAudit> SystemAudit { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)

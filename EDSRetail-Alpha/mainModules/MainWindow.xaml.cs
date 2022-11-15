@@ -1,4 +1,5 @@
 ﻿
+using mainModules.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Windows;
 
@@ -12,8 +13,8 @@ namespace mainModules
         public string appLocation { get; set; }
         public bool isUserAuthenticated { get; set; }
 
-        private readonly SalesContext _contextSales =
-            new SalesContext();
+        private readonly _dbContext _mainContext =
+            new _dbContext();
 
 
         public MainWindow()
@@ -57,9 +58,7 @@ namespace mainModules
         private void InitDB()
         {
             //TODO : Always ensure the DB folder exists
-            _contextSales.Database.EnsureCreated();
-
-            _contextSales.Sales.Load();
+            _mainContext.Database.EnsureCreated();
         }
     }
 }

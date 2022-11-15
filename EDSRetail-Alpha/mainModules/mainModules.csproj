@@ -31,8 +31,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del &quot;C:\Users\monte\Dev\EDS_Retail\EDSRetail-Alpha\mainModules\bin\Debug\net6.0-windows\db\edsretail.db&quot;" />
-  </Target>
-
 </Project>

@@ -55,7 +55,7 @@ namespace mainModules
         {
             // clean up database connections
             _contextStock.Dispose();
-            base.OnClosing(e);
+           // base.OnClosing(e);
         }
 
 

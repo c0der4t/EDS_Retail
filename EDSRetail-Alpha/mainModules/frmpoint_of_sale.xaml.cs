@@ -1,6 +1,8 @@
 ﻿using mainModules.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,19 +23,23 @@ namespace mainModules
     /// </summary>
     public partial class point_of_sale : Window
     {
-        private List<SaleLineItem> _activeSale;
+
         private double _activeSaleTotal;
         private static string _flatFileDelimeter = "#";
 
+        private List<SaleLineItem> _activeSale;
+        private SalesContext _contextSales =
+       new SalesContext();
 
         public point_of_sale()
         {
             InitializeComponent();
+            InitDB();
 
-            _activeSale = new List<SaleLineItem>();
             dbgActiveSaleInfo.ItemsSource = _activeSale;
+
             NewSale();
-            RecoverSale();
+            // RecoverSale();
 
         }
 
@@ -83,12 +89,20 @@ namespace mainModules
             {
 
                 //Save to a temp file
-                using (StreamWriter _tempSalesFile = new StreamWriter(@"C:\temp\sale000.txt", append: true))
-                {
-                    _tempSalesFile.WriteLine($"{edtSKU.Text}#{edtQtyNumber.Text}#{edtPrice.Text}#{edtProductDescr.Text}");
-                }
+                /* using (StreamWriter _tempSalesFile = new StreamWriter(@"C:\temp\sale000.txt", append: true))
+                 {
+                     _tempSalesFile.WriteLine($"{edtSKU.Text}#{edtQtyNumber.Text}#{edtPrice.Text}#{edtProductDescr.Text}");
+                 }*/
 
-                AddLinetoActiveSale(edtSKU.Text, edtQtyNumber.Text, edtPrice.Text, edtProductDescr.Text);
+                using (var _localcontextStock = new SalesContext())
+                {
+                    var stockItem = _localcontextStock.Stock
+                        .Single(x => x.SKU == edtSKU.Text);
+                    Debug.Write(stockItem.Description);
+
+
+                    AddLinetoActiveSale("001", stockItem.SKU, edtQtyNumber.Text, stockItem.SellPrice.ToString() , stockItem.Description);
+                }
 
                 NewLineItem();
             }
@@ -97,10 +111,10 @@ namespace mainModules
 
         }
 
-        private void AddLinetoActiveSale(string _sku, string _qty, string _price, string _descr)
+        private void AddLinetoActiveSale(string SaleID, string _sku, string _qty, string _price, string _descr)
         {
             var currLineItem = new SaleLineItem();
-            currLineItem.addToSale(_sku, _qty, _price, _descr);
+            currLineItem.addToSale(SaleID, _sku, _qty, _price, _descr);
 
             _activeSale.Add(currLineItem);
 
@@ -164,7 +178,7 @@ namespace mainModules
                                 }
                             }
 
-                            AddLinetoActiveSale(_sku, _qty, _price, _descr);
+                            AddLinetoActiveSale("CheckRecoverSaleMethod", _sku, _qty, _price, _descr);
 
                         }
                     }
@@ -180,6 +194,14 @@ namespace mainModules
             {
                 NewSale();
             }
+        }
+
+
+        private void InitDB()
+        {
+            //We will load the sales table before we post.
+            //_contextSales.Stock.Load();
+            _activeSale = new List<SaleLineItem>();
         }
 
 

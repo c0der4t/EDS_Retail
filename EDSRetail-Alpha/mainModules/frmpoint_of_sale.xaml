@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
         Title="Point of Sale" Height="450" Width="800">
+
     <Grid>
 
         <Grid.ColumnDefinitions>
