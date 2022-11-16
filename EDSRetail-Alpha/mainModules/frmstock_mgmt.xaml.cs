@@ -16,7 +16,6 @@ namespace mainModules
     /// </summary>
     public partial class stock_mgmt : Window
     {
-        public List<StockItem> _stockList = new List<StockItem>();
         private List<string> _comments = new List<string>();
         private static string _flatFileDelimeter = "#";
 
@@ -34,16 +33,6 @@ namespace mainModules
 
         }
 
-        private void ImportStocktoGrid(string _sku, string _qtyonhand, string _price, string _descr)
-        {
-            var currStockItem = new StockItem();
-            currStockItem.addStockItem(_sku, _qtyonhand, _price, _descr);
-
-            _stockList.Add(currStockItem);
-            RefreshDataGrid();
-
-
-        }
 
         public void RefreshDataGrid()
         {
@@ -55,20 +44,8 @@ namespace mainModules
         {
             // clean up database connections
             _contextStock.Dispose();
-           // base.OnClosing(e);
         }
 
-
-        private void SaveStockFile()
-        {
-
-            // all changes are automatically tracked, including
-            // deletes!
-            _contextStock.SaveChanges();
-
-            // this forces the grid to refresh to latest values
-            dbgStock.Items.Refresh();
-        }
 
 
         private void btnAddStockItem_Click(object sender, RoutedEventArgs e)
@@ -85,15 +62,22 @@ namespace mainModules
             frmstock_entry StockEntryForm = new frmstock_entry();
             
             //ToDo: Out of range exception when no data.
-            StockEntryForm.WindowTitle = $"Edit Item {_stockList[dbgStock.SelectedIndex].Product_SKU}";
+            //StockEntryForm.WindowTitle = $"Edit Item {_stockList[dbgStock.SelectedIndex].Product_SKU}";
 
-            StockEntryForm.LoadStockItem(_stockList[dbgStock.SelectedIndex], dbgStock.SelectedIndex);
-            StockEntryForm.Show();
+           //StockEntryForm.LoadStockItem(_stockList[dbgStock.SelectedIndex], dbgStock.SelectedIndex);
+           // StockEntryForm.Show();
         }
+
 
         private void btnSaveStockFile_Click(object sender, RoutedEventArgs e)
         {
-            SaveStockFile();
+
+            // all changes are automatically tracked, including
+            // deletes!
+            _contextStock.SaveChanges();
+
+            // this forces the grid to refresh to latest values
+            dbgStock.Items.Refresh();
         }
 
         private void btnReloadStockFile_Click(object sender, RoutedEventArgs e)
@@ -104,10 +88,22 @@ namespace mainModules
 
         private void btnDeleteSelectedItem_Click(object sender, RoutedEventArgs e)
         {
-            if (dbgStock.SelectedIndex < _stockList.Count)
+            if (dbgStock.SelectedIndex >= 0)
             {
-                _stockList.RemoveAt(dbgStock.SelectedIndex);
-                RefreshDataGrid();
+
+                databaseAPI.Models.Stock stockItem = dbgStock.SelectedItem as databaseAPI.Models.Stock;
+
+                MessageBoxResult mrConfirmDelete = MessageBox.Show($"Are you sure you'd like to delete item with SKU:\n{stockItem.SKU}\nThis saves instantly and CANNOT BE UNDONE", 
+                    "WARNING: Confirm Item Deletion", MessageBoxButton.YesNo);
+
+                if (mrConfirmDelete == MessageBoxResult.Yes)
+                {
+                    //ToDo : Query the sales table for any trades on this stock item
+                    // if traded, cannot delete
+
+                    _contextStock.Stock.Remove(stockItem);
+                }
+
             }
 
         }

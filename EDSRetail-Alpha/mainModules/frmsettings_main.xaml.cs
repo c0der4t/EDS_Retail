@@ -1,4 +1,6 @@
-﻿using System;
+﻿using mainModules.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,33 @@ namespace mainModules
     /// </summary>
     public partial class frmsettings_main : Window
     {
+
+        private UserContext _contextUser =
+          new UserContext();
+
+        private CollectionViewSource userViewSource;
+
+
+
         public frmsettings_main()
         {
             InitializeComponent();
+
+            userViewSource =
+               (CollectionViewSource)FindResource(nameof(userViewSource));
+
+
+            InitDB();
+        }
+
+
+        private void InitDB()
+        {
+            _contextUser.Users.Load();
+
+            // bind to the source
+            userViewSource.Source =
+                _contextUser.Users.Local.ToObservableCollection();
         }
     }
 }

@@ -31,6 +31,7 @@
             
             <Button x:Name="btnPOS" Content="Point of Sale" Click="btnPOS_Click"/>
             <Button x:Name="btnStock" Content="Stock" Click="btnStock_Click"/>
+            <Button x:Name="btnSalesndReports" Content="Sales and Reports"/>
             <Button x:Name="btnSettings" Content="Settings" Click="btnSettings_Click"/>
             <Button x:Name="btnLogout" Content="Logout" Click="btnLogout_Click"/>
 

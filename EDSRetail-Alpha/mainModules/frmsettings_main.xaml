@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
         Title="Settings" Height="450" Width="800">
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="userViewSource"/>
+    </Window.Resources>
+
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -22,7 +28,7 @@
 
         <TabControl Grid.Row="1" Grid.Column="1">
             <TabItem x:Name="tbitmGeneral" Header="General">
-                
+
             </TabItem>
 
             <TabItem x:Name="tbitmUsersGroups" Header="Users">
@@ -52,16 +58,19 @@
                             </StackPanel>
 
                             <DataGrid x:Name="dbgUsers" Grid.Row="1" Grid.Column="1"
-                                      AutoGenerateColumns="False"/>
+                                      AutoGenerateColumns="True" 
+          EnableRowVirtualization="True" 
+          ItemsSource="{Binding Source={StaticResource userViewSource}}"
+                                />
                         </StackPanel>
 
                     </Grid>
 
                 </ScrollViewer>
             </TabItem>
-            
+
         </TabControl>
-        
+
     </Grid>
-    
+
 </Window>

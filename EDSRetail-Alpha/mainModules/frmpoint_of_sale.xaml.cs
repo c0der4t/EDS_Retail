@@ -1,4 +1,5 @@
 ﻿using mainModules.Models;
+using databaseAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Reflection.Metadata;
+using System.Security.Cryptography;
 
 namespace mainModules
 {
@@ -27,7 +30,7 @@ namespace mainModules
         private double _activeSaleTotal;
         private static string _flatFileDelimeter = "#";
 
-        private List<SaleLineItem> _activeSale;
+        private List<databaseAPI.Models.Sale> _activeSale;
         private SalesContext _contextSales =
        new SalesContext();
 
@@ -49,7 +52,7 @@ namespace mainModules
             _activeSale.Clear();
             dbgActiveSaleInfo.AutoGenerateColumns = true;
             dbgActiveSaleInfo.Columns.Clear();
-            UpdateActiveSaleTotal("0");
+            UpdateActiveSaleTotal(0);
             NewLineItem();
         }
 
@@ -62,59 +65,24 @@ namespace mainModules
             edtSKU.Focus();
         }
 
-        private void UpdateActiveSaleTotal(string _lineItemPrice)
+        private void UpdateActiveSaleTotal(double _lineItemPrice)
         {
-            // #ToFix
-            _lineItemPrice = _lineItemPrice.Replace('.', ',');
-
-            double _convertedLineItemPrice = 0;
-            try
-            {
-                _convertedLineItemPrice = Convert.ToDouble(_lineItemPrice);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"An exception occured while updating the sale total:\n{e.ToString()}");
-                throw;
-            }
-
-            _activeSaleTotal += _convertedLineItemPrice;
+            _activeSaleTotal += _lineItemPrice;
 
             lblCurrentSaleTotal.Text = _activeSaleTotal.ToString();
         }
 
-        private void edtSKU_KeyDown(object sender, KeyEventArgs e)
+       
+        private void AddLinetoActiveSale(string _saleID, string _sku, double _qty, double _price, string _descr)
         {
-            if (e.Key == Key.Enter)
-            {
+            var currLineItem = new databaseAPI.Models.Sale();
 
-                //Save to a temp file
-                /* using (StreamWriter _tempSalesFile = new StreamWriter(@"C:\temp\sale000.txt", append: true))
-                 {
-                     _tempSalesFile.WriteLine($"{edtSKU.Text}#{edtQtyNumber.Text}#{edtPrice.Text}#{edtProductDescr.Text}");
-                 }*/
-
-                using (var _localcontextStock = new SalesContext())
-                {
-                    var stockItem = _localcontextStock.Stock
-                        .Single(x => x.SKU == edtSKU.Text);
-                    Debug.Write(stockItem.Description);
-
-
-                    AddLinetoActiveSale("001", stockItem.SKU, edtQtyNumber.Text, stockItem.SellPrice.ToString() , stockItem.Description);
-                }
-
-                NewLineItem();
-            }
-
-
-
-        }
-
-        private void AddLinetoActiveSale(string SaleID, string _sku, string _qty, string _price, string _descr)
-        {
-            var currLineItem = new SaleLineItem();
-            currLineItem.addToSale(SaleID, _sku, _qty, _price, _descr);
+            currLineItem.SaleID = _saleID;
+            currLineItem.SaleIDHASH = GetHashFromString(_saleID);
+            currLineItem.SKU = _sku;
+            currLineItem.QTY = _qty;
+            currLineItem.Price = _price;
+            currLineItem.Description = _descr;
 
             _activeSale.Add(currLineItem);
 
@@ -125,87 +93,50 @@ namespace mainModules
         }
 
 
-        private void RecoverSale()
+        public static byte[] GetHashByteArray(string _unhashedString)
         {
-            if (File.Exists(@"C:\temp\sale000.txt") == true)
-            {
-                var recoverDlgResult = MessageBox.Show("A failed sale has been found, do you want to recover it?",
-                     "Recover sale", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (recoverDlgResult == MessageBoxResult.Yes)
-                {
-                    //Load file
-                    string currLine = "";
-
-                    using (StreamReader _recoveredSaleFile = new StreamReader(@"C:\temp\sale000.txt"))
-                    {
-                        while ((currLine = _recoveredSaleFile.ReadLine()) != null)
-                        {
-                            string _sku = "";
-                            string _qty = "";
-                            string _price = "";
-                            string _descr = "";
-
-                            int lengthCurrLine = currLine.Length;
-                            int colNumber = 0;
-
-
-                            while (lengthCurrLine > 0)
-                            {
-                                colNumber += 1;
-                                int indexOfDelimeter = currLine.IndexOf(_flatFileDelimeter) > -1 ? currLine.IndexOf(_flatFileDelimeter) : lengthCurrLine;
-                                string currColValue = currLine.Substring(0, indexOfDelimeter);
-
-                                currLine = currLine.IndexOf(_flatFileDelimeter) > -1 ? currLine.Substring(currColValue.Length + _flatFileDelimeter.Length) : "";
-                                lengthCurrLine = currLine.Length;
-
-                                switch (colNumber)
-                                {
-                                    case 1:
-                                        _sku = currColValue;
-                                        break;
-                                    case 2:
-                                        _qty = currColValue;
-                                        break;
-                                    case 3:
-                                        _price = currColValue;
-                                        break;
-                                    case 4:
-                                        _descr = currColValue;
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-
-                            AddLinetoActiveSale("CheckRecoverSaleMethod", _sku, _qty, _price, _descr);
-
-                        }
-                    }
-
-
-                    // #Twitch
-                    //Parse file
-                    //Load items into sale
-                    //Update live sale total
-                }
-            }
-            else
-            {
-                NewSale();
-            }
+            using (HashAlgorithm algorithm = SHA256.Create())
+                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
         }
 
-
-        private void InitDB()
+        public static string GetHashFromString(string _unhashedString)
         {
-            //We will load the sales table before we post.
-            //_contextSales.Stock.Load();
-            _activeSale = new List<SaleLineItem>();
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHashByteArray(_unhashedString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
 
 
         #region UI Events
+
+        private void edtSKU_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    //ToDo : Optimize loading of DB. Maybe not use using statement? 
+                    using (var _localcontextStock = new SalesContext())
+                    {
+
+                        var stockItem = _localcontextStock.Stock
+                            .Single(x => x.SKU == edtSKU.Text);
+
+                        AddLinetoActiveSale("001", stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
+                    }
+
+                    NewLineItem();
+
+                }
+                catch (InvalidOperationException InvalidOpEx)
+                {
+                    MessageBox.Show($"SKU not found.\n{edtSKU.Text}");
+                }
+            }
+
+        }
 
         private void btnQtyQuickButton1_Click(object sender, RoutedEventArgs e)
         {
@@ -229,9 +160,36 @@ namespace mainModules
 
         private void btnProcess_Click(object sender, RoutedEventArgs e)
         {
-            File.Delete(@"C:\temp\sale000.txt");
+            PostSaletoDB(_activeSale);
             NewSale();
         }
+        #endregion
+
+        #region DB Interaction
+
+        private void InitDB()
+        {
+            //We will load the sales table before we post.
+            //_contextSales.Stock.Load();
+            _activeSale = new List<databaseAPI.Models.Sale>();
+        }
+
+
+
+        private void PostSaletoDB(List<databaseAPI.Models.Sale> SaleInfo)
+        {
+            using (var _localcontextSales = new SalesContext())
+            {
+                // var blog = new Blog { Url = "http://example.com" };
+                foreach (databaseAPI.Models.Sale SingleSaleItem in SaleInfo)
+                {
+                    _localcontextSales.Sales.Add(SingleSaleItem);
+                    _localcontextSales.SaveChanges();
+                }
+            }
+        }
+
+
         #endregion
     }
 }
