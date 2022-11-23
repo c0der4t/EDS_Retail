@@ -1,6 +1,6 @@
-﻿
-using mainModules.Models;
+﻿using mainModules.Models;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Windows;
 
 namespace mainModules
@@ -16,14 +16,16 @@ namespace mainModules
         private readonly _dbContext _mainContext =
             new _dbContext();
 
-
         public MainWindow()
         {
             InitializeComponent();
-           // CheckUserAuth();
+            //CheckUserAuth();
             InitDB();
 
         }
+
+        #region Custom Methods
+        //Any method written by a dev. This is non standard / non boilerplate code
 
         private void CheckUserAuth()
         {
@@ -31,6 +33,27 @@ namespace mainModules
             loginscreen.ShowDialog();
 
         }
+
+        /// <summary>
+        /// Ensures DB folder and DB tables exist. If not, creates them
+        /// </summary>
+        private void InitDB()
+        {
+            //Ref: https://learn.microsoft.com/en-us/ef/core/get-started/wpf#add-code-that-handles-data-interaction
+
+            if (Directory.Exists(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db")))
+            {
+                Directory.CreateDirectory(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db"));
+            }
+
+            //This checks if all tables are created, else creates them
+            _mainContext.Database.EnsureCreated();
+        }
+
+        #endregion
+
+        #region UI Events
+        //Any method that is triggered by a UI element action/event
 
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
@@ -52,13 +75,12 @@ namespace mainModules
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            // ToDo: Destroy user auth token. Show login screen
+            CheckUserAuth();
         }
 
-        private void InitDB()
-        {
-            //TODO : Always ensure the DB folder exists
-            _mainContext.Database.EnsureCreated();
-        }
+
+        #endregion
+
     }
 }

@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace mainModules
 {
@@ -20,11 +8,17 @@ namespace mainModules
     public partial class frmUserLogin : Window
     {
         MainWindow parentForm;
+
         public frmUserLogin()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Overrides default show/initialize component action.
+        /// Override occurs when Show is called with parameter.
+        /// </summary>
+        /// <param name="callingForm">The form initializing the .Show call. Usually 'this' will suffice</param>
         public frmUserLogin(MainWindow callingForm)
         {
             InitializeComponent();
@@ -34,6 +28,7 @@ namespace mainModules
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            //ToDo : Check user auth against database
             if (edtLoginUsername.Text == edtLoginPassword.Password)
             {
                 Close();

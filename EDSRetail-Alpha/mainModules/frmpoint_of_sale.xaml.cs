@@ -1,23 +1,10 @@
-﻿using mainModules.Models;
-using databaseAPI.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Reflection.Metadata;
 using System.Security.Cryptography;
+using System.Text;
+using System.Windows;
+using System.Windows.Input;
 
 namespace mainModules
 {
@@ -26,13 +13,11 @@ namespace mainModules
     /// </summary>
     public partial class point_of_sale : Window
     {
-
         private double _activeSaleTotal;
-        private static string _flatFileDelimeter = "#";
 
         private List<databaseAPI.Models.Sale> _activeSale;
         private SalesContext _contextSales =
-       new SalesContext();
+        new SalesContext();
 
         public point_of_sale()
         {
@@ -42,8 +27,6 @@ namespace mainModules
             dbgActiveSaleInfo.ItemsSource = _activeSale;
 
             NewSale();
-            // RecoverSale();
-
         }
 
         private void NewSale()
@@ -54,6 +37,8 @@ namespace mainModules
             dbgActiveSaleInfo.Columns.Clear();
             UpdateActiveSaleTotal(0);
             NewLineItem();
+
+            //ToDo : Generate a unique saleID
         }
 
         private void NewLineItem()
@@ -65,6 +50,10 @@ namespace mainModules
             edtSKU.Focus();
         }
 
+        /// <summary>
+        /// Adds given double to running sale total for the current sale
+        /// </summary>
+        /// <param name="_lineItemPrice">Price of the line item total. If QTY > 1 , then lineitemPrice == sellprice * qty</param>
         private void UpdateActiveSaleTotal(double _lineItemPrice)
         {
             _activeSaleTotal += _lineItemPrice;
@@ -72,11 +61,19 @@ namespace mainModules
             lblCurrentSaleTotal.Text = _activeSaleTotal.ToString();
         }
 
-       
+        /// <summary>
+        /// Builds object of Sale based off parameters. Adds to live receipt. Calls UpdateActiveSaleTotal.
+        /// </summary>
+        /// <param name="_saleID">Unique ID of the current / active sale</param>
+        /// <param name="_sku">SKU of the item just scanned / added to the sale</param>
+        /// <param name="_qty">QTY of given SKU added to the sale</param>
+        /// <param name="_price">Price for 1 unit of a given SKU. NOT sellprice * qty</param>
+        /// <param name="_descr">Description of given SKU as at time of scanning</param>
         private void AddLinetoActiveSale(string _saleID, string _sku, double _qty, double _price, string _descr)
         {
             var currLineItem = new databaseAPI.Models.Sale();
 
+            
             currLineItem.SaleID = _saleID;
             currLineItem.SaleIDHASH = GetHashFromString(_saleID);
             currLineItem.SKU = _sku;
@@ -85,24 +82,28 @@ namespace mainModules
             currLineItem.Description = _descr;
 
             _activeSale.Add(currLineItem);
-
             dbgActiveSaleInfo.ItemsSource = null;
             dbgActiveSaleInfo.ItemsSource = _activeSale;
 
-            UpdateActiveSaleTotal(_price);
+            UpdateActiveSaleTotal(_price * _qty);
         }
 
 
-        public static byte[] GetHashByteArray(string _unhashedString)
-        {
-            using (HashAlgorithm algorithm = SHA256.Create())
-                return algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
-        }
-
+        /// <summary>
+        /// Returns SHA256 hash of a given string.
+        /// </summary>
+        /// <param name="_unhashedString">String you'd like to hash using SHA256</param>
+        /// <returns></returns>
         public static string GetHashFromString(string _unhashedString)
         {
+            byte[] HashByteArray;
+
+            using (HashAlgorithm algorithm = SHA256.Create())
+                HashByteArray =  algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
+
+            
             StringBuilder sb = new StringBuilder();
-            foreach (byte b in GetHashByteArray(_unhashedString))
+            foreach (byte b in HashByteArray)
                 sb.Append(b.ToString("X2"));
 
             return sb.ToString();
@@ -113,6 +114,7 @@ namespace mainModules
 
         private void edtSKU_KeyDown(object sender, KeyEventArgs e)
         {
+            //ToDo: Check for char value instead of key. This way we can change that value
             if (e.Key == Key.Enter)
             {
                 try
@@ -120,17 +122,18 @@ namespace mainModules
                     //ToDo : Optimize loading of DB. Maybe not use using statement? 
                     using (var _localcontextStock = new SalesContext())
                     {
-
                         var stockItem = _localcontextStock.Stock
                             .Single(x => x.SKU == edtSKU.Text);
 
+                        //ToDo: replace 001 with unique sale ID
+                        //ToDo: Remove SaleHASH and ID fields from live receipts
                         AddLinetoActiveSale("001", stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
                     }
 
                     NewLineItem();
 
                 }
-                catch (InvalidOperationException InvalidOpEx)
+                catch (InvalidOperationException)
                 {
                     MessageBox.Show($"SKU not found.\n{edtSKU.Text}");
                 }
@@ -155,6 +158,7 @@ namespace mainModules
 
         private void btnChangePrice_Click(object sender, RoutedEventArgs e)
         {
+            //ToDo: Allow change of price of item
             MessageBox.Show("The price may not be changed at this time");
         }
 
@@ -163,33 +167,51 @@ namespace mainModules
             PostSaletoDB(_activeSale);
             NewSale();
         }
+
+        private void btnVoidSale_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult VoidSale = MessageBox.Show("Are you sure you'd like to void this sale.", 
+                "Confirm Void", MessageBoxButton.YesNo);
+
+            if (VoidSale == MessageBoxResult.Yes)
+            {
+                NewSale();
+            }
+
+        }
         #endregion
 
         #region DB Interaction
 
         private void InitDB()
         {
-            //We will load the sales table before we post.
-            //_contextSales.Stock.Load();
             _activeSale = new List<databaseAPI.Models.Sale>();
         }
 
 
-
+        /// <summary>
+        /// Posts a list of Sale objects to the sales table AS IS
+        /// </summary>
+        /// <param name="SaleInfo">A list of type databaseAPI.Models.Sale</param>
         private void PostSaletoDB(List<databaseAPI.Models.Sale> SaleInfo)
         {
+            //Open the DB / SalesContext to write to. Using auto disposes
             using (var _localcontextSales = new SalesContext())
             {
-                // var blog = new Blog { Url = "http://example.com" };
                 foreach (databaseAPI.Models.Sale SingleSaleItem in SaleInfo)
                 {
+                    //Table is based on same databaseAPI.Models.Sale model. So we pass it the
+                    //object from the list directly and save the item
                     _localcontextSales.Sales.Add(SingleSaleItem);
-                    _localcontextSales.SaveChanges();
                 }
+
+                _localcontextSales.SaveChanges();
             }
         }
 
 
         #endregion
+
+        
     }
 }
