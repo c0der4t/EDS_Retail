@@ -26,6 +26,7 @@ Since my first few weeks at that job, I've always thought about building a free 
 
 If you like the sound of a free and open source retail system, make sure to get on board. I'll be posting progress updates, challenges and code breakdowns on all the platforms I creep about. Here are the main ways to stay up to date:
 
+- [Join me live on Youtube](https://www.youtube.com/@ekronds)
 - Follow the project on [GitHub](https://github.com/c0der4t/EDS_Retail/)
 - [Follow our blog](https://blog.ekronds.co.za/series/eds-retail), we have a series dedicated to EDS Retail (Ensure you subscribe to the newsletter)
 - [Follow me on Twitter](https://twitter.com/EkronMonte) for the bite sized info
