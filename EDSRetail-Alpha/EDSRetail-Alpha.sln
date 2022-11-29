@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mainModules", "mainModules\mainModules.csproj", "{7F1B33FA-BF18-4309-A597-42E232D100EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mainModules", "mainModules\mainModules.csproj", "{7F1B33FA-BF18-4309-A597-42E232D100EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "databaseAPI", "databaseAPI\databaseAPI.csproj", "{84B608D7-75E9-42BB-88FD-33569B61568E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "databaseAPI", "databaseAPI\databaseAPI.csproj", "{84B608D7-75E9-42BB-88FD-33569B61568E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "securityAPI", "securityAPI\securityAPI.csproj", "{A17D5A29-1038-4946-B762-0BD76EC143CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{84B608D7-75E9-42BB-88FD-33569B61568E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84B608D7-75E9-42BB-88FD-33569B61568E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84B608D7-75E9-42BB-88FD-33569B61568E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

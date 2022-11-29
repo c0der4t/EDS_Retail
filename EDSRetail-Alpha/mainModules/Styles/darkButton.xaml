@@ -21,7 +21,8 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                        Margin="2,2,2,2"
-                                       FontFamily="Regular"/>
+                                       FontFamily="Regular" FontWeight="SemiBold"
+                                           FontSize="14" TextWrapping="Wrap" />
 
 
                             </Grid>
@@ -37,7 +38,6 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="#F8F8F8"/>
             <Setter Property="Margin" Value="5,5,5,5"/>
-            <Setter Property="FontSize" Value="12"/>
 
         </Style.Setters>
         

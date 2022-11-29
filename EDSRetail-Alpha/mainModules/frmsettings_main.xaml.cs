@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using securityAPI;
 
 namespace mainModules
 {
@@ -48,6 +50,16 @@ namespace mainModules
             // bind to the source
             userViewSource.Source =
                 _contextUser.Users.Local.ToObservableCollection();
+        }
+
+        private void dbgUsers_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            //Check if it is the password block
+            if (e.Column.Header.ToString() == "Password")
+            {
+               string HashedString = Encryption.GenerateHashFromString(((TextBox)e.EditingElement).Text);
+                Debug.WriteLine(HashedString);
+            }
         }
     }
 }

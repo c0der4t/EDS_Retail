@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Styles/darkButtonSmall.xaml"/>
                 <ResourceDictionary Source="/Styles/darkEdit.xaml"/>
                 <ResourceDictionary Source="/Styles/darkLabel.xaml"/>
+                <ResourceDictionary Source="/Styles/darkWindow.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

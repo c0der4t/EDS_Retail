@@ -19,8 +19,8 @@ namespace mainModules
         public MainWindow()
         {
             InitializeComponent();
-            //CheckUserAuth();
             InitDB();
+            CheckUserAuth();
 
         }
 
@@ -31,6 +31,7 @@ namespace mainModules
         {
             frmUserLogin loginscreen = new frmUserLogin();
             loginscreen.ShowDialog();
+            //ToDo : Check for a valid token
 
         }
 
