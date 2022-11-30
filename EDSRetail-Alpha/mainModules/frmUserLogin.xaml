@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
-        Title="Login" Height="350" Width="375">
+        Title="Login" Height="350" Width="375" WindowStartupLocation="CenterScreen">
 
     <Border
                              BorderBrush="#F8F8F8" 
@@ -31,7 +31,8 @@
                 <TextBlock Text="LOGIN"
                       FontSize="35" TextAlignment="Center"/>
                 <TextBox x:Name="edtLoginUsername" Margin="10,10,10,10" Style="{StaticResource darkEdit}" KeyDown="edtLoginUsername_KeyDown"/>
-                <PasswordBox x:Name="edtLoginPassword" Margin="10,10,10,10" KeyDown="edtLoginPassword_KeyDown"/>
+                <TextBlock x:Name="lblCapsLockWarning" Text="Caps-Lock is on" HorizontalAlignment="Center" Foreground="Red" FontWeight="SemiBold" Visibility="Hidden"/>
+                <PasswordBox x:Name="edtLoginPassword" Margin="10,10,10,10" KeyDown="edtLoginPassword_KeyDown" PasswordChanged="edtLoginPassword_PasswordChanged"/>
                 <Button x:Name="btnLogin" Content="Login"
                     Margin="10,10,10,10" Click="btnLogin_Click" Style="{StaticResource darkButton}"/>
             </StackPanel>

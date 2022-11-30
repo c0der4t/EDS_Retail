@@ -1,5 +1,7 @@
 ﻿using mainModules.Models;
 using Microsoft.EntityFrameworkCore;
+using securityAPI;
+using System;
 using System.IO;
 using System.Windows;
 
@@ -29,9 +31,20 @@ namespace mainModules
 
         private void CheckUserAuth()
         {
-            frmUserLogin loginscreen = new frmUserLogin();
-            loginscreen.ShowDialog();
-            //ToDo : Check for a valid token
+            int LoopCounter = 0;
+            while (!authToken.IsUserAuthorized())
+            {
+                if (LoopCounter >= 3)
+                {
+                    MessageBox.Show("Login avoidance detected. Closing application");
+                    Environment.Exit(0);
+                }
+                frmUserLogin loginscreen = new frmUserLogin();
+                loginscreen.ShowDialog();
+                LoopCounter += 1;
+            }
+
+            lblGreetings.Text = $"Welcome, {authToken.GetFirstName()}";
 
         }
 
@@ -76,7 +89,7 @@ namespace mainModules
 
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
-            // ToDo: Destroy user auth token. Show login screen
+            authToken.DeauthorizeCurrentUser();
             CheckUserAuth();
         }
 

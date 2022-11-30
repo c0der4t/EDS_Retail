@@ -113,7 +113,7 @@
 
                     <TextBlock Text="Code/SKU" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
                     <TextBox x:Name="edtSKU" Grid.Row="1" Grid.Column="0" 
-                         Style="{StaticResource darkEdit}" Text="Test" Tag="Code/SKU"
+                         Style="{StaticResource darkEdit}"
                          KeyDown="edtSKU_KeyDown" />
                     <Button x:Name="btnLookupSKU" Grid.Row="1" Grid.Column="1"
                         Style="{StaticResource darkButton}">🔍</Button>

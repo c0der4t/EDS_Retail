@@ -16,25 +16,28 @@
                                 Background="#F8F8F8">
 
                             <Grid>
+                               
 
-                                <TextBox Text="{TemplateBinding Text}"
-                                         Margin="7,1,7,1"
-                                         BorderThickness="0"
-                                         VerticalAlignment="Center"
-                                         Foreground="#1A1A1B" Background="#F8F8F8"
-                                         FontFamily="Inter"
-                                         FontSize="14"
-                                         />
-
+                                <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="false"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"/>
+                                
                             </Grid>
                             
                         </Border>
-                        
-                        
 
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+            <Setter Property="Margin" Value="7,1,7,1"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#1A1A1B"/>
+            <Setter Property="Background" Value="#F8F8F8"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="14"/>
 
 
         </Style.Setters>

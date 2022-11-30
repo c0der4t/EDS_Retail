@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using securityAPI;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace mainModules
 {
@@ -13,8 +15,7 @@ namespace mainModules
     {
         MainWindow parentForm;
 
-        private UserContext _contextUser =
-          new UserContext();
+        int FailedLoginCounter = 0;
 
         public frmUserLogin()
         {
@@ -30,7 +31,6 @@ namespace mainModules
         {
             InitializeComponent();
             parentForm = callingForm;
-            _contextUser.Users.Load();
 
         }
 
@@ -39,7 +39,7 @@ namespace mainModules
 
         #region Custom Methods
 
- 
+
 
         private void VerifyLogin()
         {
@@ -50,12 +50,24 @@ namespace mainModules
 
                 if (securityAPI.Decryption.VerifyStringAgainstHash(edtLoginPassword.Password, userItem.Password))
                 {
-                    Debug.WriteLine($"User logged in:{userItem.ID} - {userItem.Username}");
+                    authToken.AuthorizeUser(userItem.ID, userItem.Username, userItem.FirstName);
                     Close();
                 }
                 else
                 {
-                    MessageBox.Show("Login failed");
+
+                    FailedLoginCounter += 1;
+                    authToken.DeauthorizeCurrentUser();
+                    if (FailedLoginCounter >= 3)
+                    {
+                        MessageBox.Show("Multiple failed logins detected. Closing application");
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Login failed ({FailedLoginCounter})");
+                    }
+
                 }
 
             }
@@ -89,9 +101,21 @@ namespace mainModules
             VerifyLogin();
         }
 
+
+
         #endregion
 
+        private void edtLoginPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if ((Keyboard.GetKeyStates(Key.CapsLock) & KeyStates.Toggled) == KeyStates.Toggled)
+            {
+                lblCapsLockWarning.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lblCapsLockWarning.Visibility = Visibility.Hidden;
+            }
 
-
+        }
     }
 }

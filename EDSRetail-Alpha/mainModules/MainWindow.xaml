@@ -31,7 +31,7 @@
 
 
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <TextBlock Text="Welcome, c0der4t" 
+                <TextBlock x:Name="lblGreetings" Text="Welcome," 
                        Grid.Row="1" Grid.Column="1"
                        Margin="5,5,5,5" Padding="2,2,2,2"
                        FontSize="32"/>

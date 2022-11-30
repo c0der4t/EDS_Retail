@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -73,7 +74,7 @@ namespace mainModules
         {
             var currLineItem = new databaseAPI.Models.Sale();
 
-            
+
             currLineItem.SaleID = _saleID;
             currLineItem.SaleIDHASH = GetHashFromString(_saleID);
             currLineItem.SKU = _sku;
@@ -99,9 +100,9 @@ namespace mainModules
             byte[] HashByteArray;
 
             using (HashAlgorithm algorithm = SHA256.Create())
-                HashByteArray =  algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
+                HashByteArray = algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
 
-            
+
             StringBuilder sb = new StringBuilder();
             foreach (byte b in HashByteArray)
                 sb.Append(b.ToString("X2"));
@@ -170,7 +171,7 @@ namespace mainModules
 
         private void btnVoidSale_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult VoidSale = MessageBox.Show("Are you sure you'd like to void this sale.", 
+            MessageBoxResult VoidSale = MessageBox.Show("Are you sure you'd like to void this sale.",
                 "Confirm Void", MessageBoxButton.YesNo);
 
             if (VoidSale == MessageBoxResult.Yes)
@@ -213,6 +214,6 @@ namespace mainModules
 
         #endregion
 
-        
+
     }
 }
