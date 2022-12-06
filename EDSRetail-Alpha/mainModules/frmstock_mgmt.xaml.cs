@@ -19,8 +19,7 @@ namespace mainModules
         private List<string> _comments = new List<string>();
         private static string _flatFileDelimeter = "#";
 
-        private StockContext _contextStock =
-           new StockContext();
+        private StockContext _contextStock;
 
         private CollectionViewSource stockViewSource;
 
@@ -57,33 +56,34 @@ namespace mainModules
 
         }
 
-        private void btnEditStockItem_Click(object sender, RoutedEventArgs e)
-        {
-            frmstock_entry StockEntryForm = new frmstock_entry();
-            
-            //ToDo: Out of range exception when no data.
-            //StockEntryForm.WindowTitle = $"Edit Item {_stockList[dbgStock.SelectedIndex].Product_SKU}";
-
-           //StockEntryForm.LoadStockItem(_stockList[dbgStock.SelectedIndex], dbgStock.SelectedIndex);
-           // StockEntryForm.Show();
-        }
-
 
         private void btnSaveStockFile_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult mrConfirmSave = MessageBox.Show($"Are you sure you'd like to post your changes to the database?",
+                "Confirm Save Request", MessageBoxButton.YesNo);
 
-            // all changes are automatically tracked, including
-            // deletes!
-            _contextStock.SaveChanges();
+            if (mrConfirmSave == MessageBoxResult.Yes)
+            {
+                // all changes are automatically tracked, including
+                // deletes!
+                _contextStock.SaveChanges();
 
-            // this forces the grid to refresh to latest values
-            dbgStock.Items.Refresh();
+                // this forces the grid to refresh to latest values
+                dbgStock.Items.Refresh();
+            }
         }
 
         private void btnReloadStockFile_Click(object sender, RoutedEventArgs e)
         {
-            stockViewSource.Source = null;
-            InitDB();
+            MessageBoxResult mrConfirmReload = MessageBox.Show($"All unsaved changes will be lost.\nContinue?",
+                    "Confirm table refresh", MessageBoxButton.YesNo);
+
+            if (mrConfirmReload == MessageBoxResult.Yes)
+            {
+                _contextStock.Dispose();
+                InitDB();
+            }
+
         }
 
         private void btnDeleteSelectedItem_Click(object sender, RoutedEventArgs e)
@@ -93,14 +93,11 @@ namespace mainModules
 
                 databaseAPI.Models.Stock stockItem = dbgStock.SelectedItem as databaseAPI.Models.Stock;
 
-                MessageBoxResult mrConfirmDelete = MessageBox.Show($"Are you sure you'd like to delete item with SKU:\n{stockItem.SKU}\nThis saves instantly and CANNOT BE UNDONE", 
+                MessageBoxResult mrConfirmDelete = MessageBox.Show($"Are you sure you'd like to stage this item for deletion?\nSKU = {stockItem.SKU}", 
                     "WARNING: Confirm Item Deletion", MessageBoxButton.YesNo);
 
                 if (mrConfirmDelete == MessageBoxResult.Yes)
                 {
-                    //ToDo : Query the sales table for any trades on this stock item
-                    // if traded, cannot delete
-
                     _contextStock.Stock.Remove(stockItem);
                 }
 
@@ -111,7 +108,7 @@ namespace mainModules
 
         private void InitDB()
         {
-            //TODO : Always ensure the DB folder exists
+            _contextStock = new StockContext();
             _contextStock.Database.EnsureCreated();
             _contextStock.Stock.Load();
 

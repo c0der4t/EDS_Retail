@@ -6,7 +6,6 @@ namespace securityAPI
     public static class Encryption
     {
 
-        //ToDo : Ensure input comes in via secured string
 
         private const int _saltSize = 16; // 128 bits
         private const int _keySize = 32; // 256 bits
@@ -39,7 +38,6 @@ namespace securityAPI
     public static class Decryption
     {
 
-        //ToDo : Ensure input comes in via secured string
 
         private const int _saltSize = 16; // 128 bits
         private const int _keySize = 32; // 256 bits

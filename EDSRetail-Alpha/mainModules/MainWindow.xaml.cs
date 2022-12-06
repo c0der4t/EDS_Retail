@@ -22,7 +22,7 @@ namespace mainModules
         {
             InitializeComponent();
             InitDB();
-            CheckUserAuth();
+            //CheckUserAuth();
 
         }
 

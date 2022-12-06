@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mainModules.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml;
 
 namespace mainModules
 {
@@ -17,6 +19,7 @@ namespace mainModules
         private double _activeSaleTotal;
 
         private List<databaseAPI.Models.Sale> _activeSale;
+        string CurrentSaleID;
         private SalesContext _contextSales =
         new SalesContext();
 
@@ -36,10 +39,11 @@ namespace mainModules
             _activeSale.Clear();
             dbgActiveSaleInfo.AutoGenerateColumns = true;
             dbgActiveSaleInfo.Columns.Clear();
+
+            CurrentSaleID = databaseAPI.utilities.RandomUniqueID();
+
             UpdateActiveSaleTotal(0);
             NewLineItem();
-
-            //ToDo : Generate a unique saleID
         }
 
         private void NewLineItem()
@@ -115,20 +119,18 @@ namespace mainModules
 
         private void edtSKU_KeyDown(object sender, KeyEventArgs e)
         {
-            //ToDo: Check for char value instead of key. This way we can change that value
+            
             if (e.Key == Key.Enter)
             {
                 try
                 {
-                    //ToDo : Optimize loading of DB. Maybe not use using statement? 
-                    using (var _localcontextStock = new SalesContext())
+                    
+                    using (var _localcontextStock = new StockContext())
                     {
                         var stockItem = _localcontextStock.Stock
                             .Single(x => x.SKU == edtSKU.Text);
 
-                        //ToDo: replace 001 with unique sale ID
-                        //ToDo: Remove SaleHASH and ID fields from live receipts
-                        AddLinetoActiveSale("001", stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
+                        AddLinetoActiveSale(CurrentSaleID, stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
                     }
 
                     NewLineItem();
@@ -159,7 +161,6 @@ namespace mainModules
 
         private void btnChangePrice_Click(object sender, RoutedEventArgs e)
         {
-            //ToDo: Allow change of price of item
             MessageBox.Show("The price may not be changed at this time");
         }
 
@@ -187,6 +188,7 @@ namespace mainModules
         private void InitDB()
         {
             _activeSale = new List<databaseAPI.Models.Sale>();
+            CurrentSaleID = null;
         }
 
 

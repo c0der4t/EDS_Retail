@@ -93,7 +93,6 @@ namespace mainModules
 
         #region Save stock file to flatfile
 
-        //ToDo: File not found exception
         /*       File.Delete(_pathToStockFile);
 
 
