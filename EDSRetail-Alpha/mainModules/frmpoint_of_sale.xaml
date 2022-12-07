@@ -42,7 +42,7 @@
                     <TextBlock  x:Name="lblCurrentSaleTotal" Text="0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
                 </StackPanel>
 
-                <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False">
+                <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False" Style="{StaticResource darkDataGrid}">
                 </DataGrid>
 
             </Grid>
@@ -168,10 +168,10 @@
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="btnLogout" Grid.Column="0" Content="Logout"
-                        Style="{StaticResource darkButton}"/>
+                        Style="{StaticResource darkButton}" Click="btnLogout_Click" />
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                        <Button x:Name="btnVoidLine" Content="Void Line"
+                        <Button x:Name="btnVoidLine" Content="Void Line" Click="btnVoidLine_Click"
                             Style="{StaticResource darkButton}"/>
                         <Button x:Name="btnVoidSale" Content="Void Sale" Click="btnVoidSale_Click"
                             Style="{StaticResource darkButton}"/>

@@ -214,8 +214,39 @@ namespace mainModules
 
 
 
+
         #endregion
 
+        private void btnVoidLine_Click(object sender, RoutedEventArgs e)
+        {
+            //Get the selected DBG line
+            //Grab line #
+            //Confirm line # void
+            //Remove the line number from active sale
 
+            int LineNum = dbgActiveSaleInfo.SelectedIndex;
+
+            MessageBoxResult VoidLine = MessageBox.Show("Are you sure you'd like to void the selected line?",
+               "Confirm Line Void", MessageBoxButton.YesNo);
+
+            if (VoidLine == MessageBoxResult.Yes)
+            {
+                double voidPrice = _activeSale[LineNum].Price;
+                double voidQTY = _activeSale[LineNum].QTY;
+
+                _activeSale.RemoveAt(LineNum);
+                dbgActiveSaleInfo.ItemsSource = null;
+                dbgActiveSaleInfo.ItemsSource = _activeSale;
+
+                UpdateActiveSaleTotal(-(voidPrice * voidQTY));
+
+                NewLineItem();
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            //ToDo : Show Login Window on logout click
+        }
     }
 }

@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="/Styles/darkEdit.xaml"/>
                 <ResourceDictionary Source="/Styles/darkLabel.xaml"/>
                 <ResourceDictionary Source="/Styles/darkWindow.xaml"/>
+                <ResourceDictionary Source="/Styles/darkDataGrid.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

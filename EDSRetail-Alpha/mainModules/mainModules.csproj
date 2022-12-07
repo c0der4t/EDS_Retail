@@ -33,6 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Styles\darkDataGrid.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\darkLabel.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

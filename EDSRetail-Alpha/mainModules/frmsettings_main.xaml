@@ -63,7 +63,7 @@
                                 </StackPanel>
 
                                 <DataGrid x:Name="dbgUsers" Grid.Row="1" Grid.Column="1"
-                                      AutoGenerateColumns="True" 
+                                      AutoGenerateColumns="True" Style="{StaticResource darkDataGrid}"
           EnableRowVirtualization="True" 
           ItemsSource="{Binding Source={StaticResource userViewSource}}" CellEditEnding="dbgUsers_CellEditEnding"
                                 />

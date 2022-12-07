@@ -54,11 +54,13 @@ namespace mainModules
 
         private void dbgUsers_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            //ToDo : Build an edit user box
+
             //Check if it is the password block
             if (e.Column.Header.ToString() == "Password")
             {
                string HashedString = Encryption.GenerateHashFromString(((TextBox)e.EditingElement).Text);
-                Debug.WriteLine(HashedString);
+               Debug.WriteLine(HashedString);
             }
         }
     }
