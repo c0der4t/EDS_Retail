@@ -32,11 +32,15 @@
             </Grid.ColumnDefinitions>
 
             <TabControl Grid.Row="1" Grid.Column="1">
-                <TabItem x:Name="tbitmGeneral" Header="General" >
+                <TabItem x:Name="tbitmGeneral" Header="General"  >
 
                 </TabItem>
 
-                <TabItem x:Name="tbitmUsersGroups" Header="Users" Height="18" VerticalAlignment="Top">
+                <TabItem Header="Trade">
+                    
+                </TabItem>
+
+                <TabItem x:Name="tbitmUsersGroups" Header="Users">
                     <ScrollViewer>
 
                         <Grid>

@@ -73,7 +73,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock x:Name="lblQTY" Text="QTY" Grid.Row="0"/>
+                    <TextBlock x:Name="lblQTY" Text="QTY" Grid.Row="0" />
 
                     <Grid x:Name="grdQtyActionItems" Grid.Row="1">
 
@@ -155,8 +155,8 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Description" Grid.Row="0"/>
-                    <TextBox x:Name="edtProductDescr" Grid.Row="1" 
-                         Style="{StaticResource darkEdit}"/>
+                    <TextBox x:Name="edtProductDescr" Grid.Row="1" Height="auto"
+                         Style="{StaticResource darkEdit}" VerticalContentAlignment="Stretch"/>
 
                 </Grid>
 
