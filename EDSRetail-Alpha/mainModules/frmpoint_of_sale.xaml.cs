@@ -1,10 +1,13 @@
-﻿using System;
+﻿using mainModules.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml;
 
 namespace mainModules
 {
@@ -16,6 +19,7 @@ namespace mainModules
         private double _activeSaleTotal;
 
         private List<databaseAPI.Models.Sale> _activeSale;
+        string CurrentSaleID;
         private SalesContext _contextSales =
         new SalesContext();
 
@@ -35,10 +39,11 @@ namespace mainModules
             _activeSale.Clear();
             dbgActiveSaleInfo.AutoGenerateColumns = true;
             dbgActiveSaleInfo.Columns.Clear();
+
+            CurrentSaleID = databaseAPI.utilities.RandomUniqueID();
+
             UpdateActiveSaleTotal(0);
             NewLineItem();
-
-            //ToDo : Generate a unique saleID
         }
 
         private void NewLineItem()
@@ -73,7 +78,7 @@ namespace mainModules
         {
             var currLineItem = new databaseAPI.Models.Sale();
 
-            
+
             currLineItem.SaleID = _saleID;
             currLineItem.SaleIDHASH = GetHashFromString(_saleID);
             currLineItem.SKU = _sku;
@@ -99,9 +104,9 @@ namespace mainModules
             byte[] HashByteArray;
 
             using (HashAlgorithm algorithm = SHA256.Create())
-                HashByteArray =  algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
+                HashByteArray = algorithm.ComputeHash(Encoding.UTF8.GetBytes(_unhashedString));
 
-            
+
             StringBuilder sb = new StringBuilder();
             foreach (byte b in HashByteArray)
                 sb.Append(b.ToString("X2"));
@@ -114,20 +119,18 @@ namespace mainModules
 
         private void edtSKU_KeyDown(object sender, KeyEventArgs e)
         {
-            //ToDo: Check for char value instead of key. This way we can change that value
+            
             if (e.Key == Key.Enter)
             {
                 try
                 {
-                    //ToDo : Optimize loading of DB. Maybe not use using statement? 
-                    using (var _localcontextStock = new SalesContext())
+                    
+                    using (var _localcontextStock = new StockContext())
                     {
                         var stockItem = _localcontextStock.Stock
                             .Single(x => x.SKU == edtSKU.Text);
 
-                        //ToDo: replace 001 with unique sale ID
-                        //ToDo: Remove SaleHASH and ID fields from live receipts
-                        AddLinetoActiveSale("001", stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
+                        AddLinetoActiveSale(CurrentSaleID, stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
                     }
 
                     NewLineItem();
@@ -158,7 +161,6 @@ namespace mainModules
 
         private void btnChangePrice_Click(object sender, RoutedEventArgs e)
         {
-            //ToDo: Allow change of price of item
             MessageBox.Show("The price may not be changed at this time");
         }
 
@@ -170,7 +172,7 @@ namespace mainModules
 
         private void btnVoidSale_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult VoidSale = MessageBox.Show("Are you sure you'd like to void this sale.", 
+            MessageBoxResult VoidSale = MessageBox.Show("Are you sure you'd like to void this sale.",
                 "Confirm Void", MessageBoxButton.YesNo);
 
             if (VoidSale == MessageBoxResult.Yes)
@@ -186,6 +188,7 @@ namespace mainModules
         private void InitDB()
         {
             _activeSale = new List<databaseAPI.Models.Sale>();
+            CurrentSaleID = null;
         }
 
 
@@ -210,8 +213,40 @@ namespace mainModules
         }
 
 
+
+
         #endregion
 
-        
+        private void btnVoidLine_Click(object sender, RoutedEventArgs e)
+        {
+            //Get the selected DBG line
+            //Grab line #
+            //Confirm line # void
+            //Remove the line number from active sale
+
+            int LineNum = dbgActiveSaleInfo.SelectedIndex;
+
+            MessageBoxResult VoidLine = MessageBox.Show("Are you sure you'd like to void the selected line?",
+               "Confirm Line Void", MessageBoxButton.YesNo);
+
+            if (VoidLine == MessageBoxResult.Yes)
+            {
+                double voidPrice = _activeSale[LineNum].Price;
+                double voidQTY = _activeSale[LineNum].QTY;
+
+                _activeSale.RemoveAt(LineNum);
+                dbgActiveSaleInfo.ItemsSource = null;
+                dbgActiveSaleInfo.ItemsSource = _activeSale;
+
+                UpdateActiveSaleTotal(-(voidPrice * voidQTY));
+
+                NewLineItem();
+            }
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            //ToDo : Show Login Window on logout click
+        }
     }
 }

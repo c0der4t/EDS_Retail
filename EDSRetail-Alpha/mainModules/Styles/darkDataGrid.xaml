@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="{x:Type DataGrid}"
+           x:Key="darkDataGrid">
+
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource darkDataGridHeader}"/>
+        <Setter Property="Margin" Value="3,5,3,3"/>
+
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader" x:Key="darkDataGridHeader">
+
+        <Style.Setters>
+
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#333F44"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+
+
+        </Style.Setters>
+
+    </Style>
+
+</ResourceDictionary>

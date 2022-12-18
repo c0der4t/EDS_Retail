@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\databaseAPI\databaseAPI.csproj" />
+    <ProjectReference Include="..\securityAPI\securityAPI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,25 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>img.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Styles\darkDataGrid.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\darkLabel.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\darkEdit.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\darkButtonSmall.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

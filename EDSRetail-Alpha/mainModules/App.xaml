@@ -4,6 +4,17 @@
              xmlns:local="clr-namespace:mainModules"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/darkButton.xaml"/>
+                <ResourceDictionary Source="/Styles/darkButtonSmall.xaml"/>
+                <ResourceDictionary Source="/Styles/darkEdit.xaml"/>
+                <ResourceDictionary Source="/Styles/darkLabel.xaml"/>
+                <ResourceDictionary Source="/Styles/darkWindow.xaml"/>
+                <ResourceDictionary Source="/Styles/darkDataGrid.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

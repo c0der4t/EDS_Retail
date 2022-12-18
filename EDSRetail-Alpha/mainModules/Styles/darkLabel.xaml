@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Inter"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="#F8F8F8"/>
+    </Style>
+
+</ResourceDictionary>

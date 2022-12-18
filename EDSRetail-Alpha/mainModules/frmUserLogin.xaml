@@ -5,29 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
-        Title="Login" Height="350" Width="375">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5"/>
-        </Grid.RowDefinitions>
+        Title="Login" Height="350" Width="375" WindowStartupLocation="CenterScreen">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
-        </Grid.ColumnDefinitions>
+    <Border
+                             BorderBrush="#F8F8F8" 
+                             BorderThickness="1"
+                             Background="#333F44">
 
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-            <Image x:Name="imgProfilePicture" />
-            <TextBlock Text="LOGIN"
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                <Image x:Name="imgProfilePicture" />
+                <TextBlock Text="LOGIN"
                       FontSize="35" TextAlignment="Center"/>
-            <TextBox x:Name="edtLoginUsername" Margin="10,10,10,10"/>
-            <PasswordBox x:Name="edtLoginPassword" Margin="10,10,10,10"/>
-            <Button x:Name="btnLogin" Content="Login"
-                    Margin="10,10,10,10" Click="btnLogin_Click"/>
-        </StackPanel>
-    </Grid>
-    
+                <TextBox x:Name="edtLoginUsername" Margin="10,10,10,10" Style="{StaticResource darkEdit}" KeyDown="edtLoginUsername_KeyDown"/>
+                <TextBlock x:Name="lblCapsLockWarning" Text="Caps-Lock is on" HorizontalAlignment="Center" Foreground="Red" FontWeight="SemiBold" Visibility="Hidden"/>
+                <PasswordBox x:Name="edtLoginPassword" Margin="10,10,10,10" KeyDown="edtLoginPassword_KeyDown" PasswordChanged="edtLoginPassword_PasswordChanged"/>
+                <Button x:Name="btnLogin" Content="Login"
+                    Margin="10,10,10,10" Click="btnLogin_Click" Style="{StaticResource darkButton}"/>
+            </StackPanel>
+        </Grid>
+
+    </Border>
+
 </Window>

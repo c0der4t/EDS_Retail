@@ -10,48 +10,56 @@
     <Window.Resources>
         <CollectionViewSource x:Key="stockViewSource"/>
     </Window.Resources>
-    
-    <Grid>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="535*"/>
-            <ColumnDefinition Width="31*"/>
-            <ColumnDefinition Width="234*"/>
-        </Grid.ColumnDefinitions>
+    <Border
+                             BorderBrush="#F8F8F8" 
+                             BorderThickness="1"
+                             Background="#333F44">
 
-
-        <!-- Digital Slip Preview / Sale tracking -->
-        <Grid Grid.Column="0" Grid.ColumnSpan="3">
+        <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="535*"/>
+                <ColumnDefinition Width="31*"/>
+                <ColumnDefinition Width="234*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-            </Grid.RowDefinitions>
+
+            <!-- Digital Slip Preview / Sale tracking -->
+            <Grid Grid.Column="0" Grid.ColumnSpan="3">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
 
 
-            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
-                <Button x:Name="btnDeleteSelectedItem" Content="Delete Selected" Margin="5,0,5,0" Padding="5" Click="btnDeleteSelectedItem_Click"/>
-                <Button x:Name="btnSaveStockFile" Content="Save Stock File" Margin="5,0,5,0" Padding="5" Click="btnSaveStockFile_Click"/>
-                <Button x:Name="btnReloadStockFile" Content="Reload Stock File" Margin="5,0,5,0" Padding="5" Click="btnReloadStockFile_Click"/>
-            </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                    <Button x:Name="btnDeleteSelectedItem" Content="Delete" Margin="5,0,5,0" Padding="5" Click="btnDeleteSelectedItem_Click" Style="{StaticResource darkButton}"/>
+                    <Button x:Name="btnSaveStockFile" Content="Save" Margin="5,0,5,0" Padding="5" Click="btnSaveStockFile_Click" Style="{StaticResource darkButton}"/>
+                    <Button x:Name="btnReloadStockFile" Content="Refresh" Margin="5,0,5,0" Padding="5" Click="btnReloadStockFile_Click" Style="{StaticResource darkButton}"/>
+                </StackPanel>
 
-            <DataGrid x:Name="dbgStock" Grid.Column="1" Grid.Row="2" 
+                <DataGrid x:Name="dbgStock" Grid.Column="1" Grid.Row="2"
                       AutoGenerateColumns="True" 
           EnableRowVirtualization="True" 
-          ItemsSource="{Binding Source={StaticResource stockViewSource}}" >
-            </DataGrid>
+          ItemsSource="{Binding Source={StaticResource stockViewSource}}" 
+                          Style="{StaticResource darkDataGrid}">
+                </DataGrid>
+
+            </Grid>
+
 
         </Grid>
 
+    </Border>
 
-    </Grid>
-    
 </Window>
