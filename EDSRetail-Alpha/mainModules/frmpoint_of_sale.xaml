@@ -7,11 +7,16 @@
         mc:Ignorable="d"
         Title="Point of Sale" Height="650" Width="1100">
 
+    <Window.Resources>
+        <CollectionViewSource x:Key="liveSalesViewSource"/>
+    </Window.Resources>
+
+
     <Border
                              BorderBrush="#F8F8F8" 
                              BorderThickness="1"
                              Background="#333F44">
- 
+
 
         <Grid>
 
@@ -42,7 +47,24 @@
                     <TextBlock  x:Name="lblCurrentSaleTotal" Text="0.00" FontSize="18" HorizontalAlignment="Right" Margin="15,0,0,0"/>
                 </StackPanel>
 
-                <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False" Style="{StaticResource darkDataGrid}">
+                <DataGrid x:Name="dbgActiveSaleInfo" Grid.Column="1" Grid.Row="2" 
+                          ColumnWidth="*" AutoGenerateColumns="False" 
+                          EnableRowVirtualization="True" 
+                          ItemsSource="{Binding Source={StaticResource liveSalesViewSource}}" 
+                          Style="{StaticResource darkDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Description">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Description}" TextWrapping="NoWrap"  
+                                               TextTrimming="CharacterEllipsis" Foreground="Black"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="QTY" Binding="{Binding QTY}"/>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                    </DataGrid.Columns>
+
                 </DataGrid>
 
             </Grid>
@@ -156,7 +178,8 @@
 
                     <TextBlock Text="Description" Grid.Row="0"/>
                     <TextBox x:Name="edtProductDescr" Grid.Row="1" Height="auto"
-                         Style="{StaticResource darkEdit}" VerticalContentAlignment="Stretch"/>
+                         Style="{StaticResource darkEdit}" VerticalContentAlignment="Top" TextWrapping="Wrap" Padding="2,0,2,0"
+                             />
 
                 </Grid>
 
