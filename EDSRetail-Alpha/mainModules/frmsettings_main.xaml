@@ -11,77 +11,72 @@
         <CollectionViewSource x:Key="userViewSource"/>
     </Window.Resources>
 
-    <Border
-                             BorderBrush="#F8F8F8" 
-                             BorderThickness="1"
-                             Background="#333F44">
 
 
-        <Grid>
+    <Grid>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
 
-            <TabControl Grid.Row="1" Grid.Column="1">
-                <TabItem x:Name="tbitmGeneral" Header="General"  >
+        <TabControl Grid.Row="1" Grid.Column="1">
+            <TabItem x:Name="tbitmGeneral" Header="General"  >
 
-                </TabItem>
+            </TabItem>
 
-                <TabItem Header="Trade">
-                    
-                </TabItem>
+            <TabItem Header="Trade">
 
-                <TabItem x:Name="tbitmUsersGroups" Header="Users">
-                    <ScrollViewer>
+            </TabItem>
 
-                        <Grid>
+            <TabItem x:Name="tbitmUsersGroups" Header="Users">
+                <ScrollViewer>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="5"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="5"/>
-                            </Grid.RowDefinitions>
+                    <Grid>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="5"/>
-                            </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                        </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btnSaveUsers" Content="Save"
-                                        Style="{StaticResource darkButton}"/>
-                                    <Button x:Name="btnReloadUsers" Content="Undo"
-                                        Style="{StaticResource darkButton}"/>
-                                </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1">
 
-                                <DataGrid x:Name="dbgUsers" Grid.Row="1" Grid.Column="1"
-                                      AutoGenerateColumns="True" Style="{StaticResource darkDataGrid}"
-          EnableRowVirtualization="True" 
-          ItemsSource="{Binding Source={StaticResource userViewSource}}" CellEditEnding="dbgUsers_CellEditEnding"
-                                />
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnAddUser" Content="Add"
+                                        Style="{StaticResource darkButton}" Click="btnAddUser_Click"/>
+                                <Button x:Name="btnDeleteUser" Content="Delete"
+                                        Style="{StaticResource darkButton}" Click="btnDeleteUser_Click"/>
                             </StackPanel>
 
-                        </Grid>
+                            <DataGrid x:Name="dbgUsers" Grid.Row="1" Grid.Column="1" IsReadOnly="True"
+                                      AutoGenerateColumns="True" Style="{StaticResource darkDataGrid}"
+                                      
+          EnableRowVirtualization="True" 
+          ItemsSource="{Binding Source={StaticResource userViewSource}}" MouseDoubleClick="dbgUsers_MouseDoubleClick"
+                                />
+                        </StackPanel>
 
-                    </ScrollViewer>
-                </TabItem>
+                    </Grid>
 
-            </TabControl>
+                </ScrollViewer>
+            </TabItem>
 
-        </Grid>
+        </TabControl>
 
-    </Border>
+    </Grid>
 
 </Window>
