@@ -52,8 +52,8 @@
                       AutoGenerateColumns="True" 
           EnableRowVirtualization="True" 
           ItemsSource="{Binding Source={StaticResource stockViewSource}}" 
-                          Style="{StaticResource darkDataGrid}">
-                </DataGrid>
+                          Style="{StaticResource darkDataGrid}"/>
+
 
             </Grid>
 

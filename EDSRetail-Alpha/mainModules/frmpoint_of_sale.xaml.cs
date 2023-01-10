@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Xml;
 
@@ -23,13 +24,16 @@ namespace mainModules
         private SalesContext _contextSales =
         new SalesContext();
 
+        private CollectionViewSource liveSalesViewSource;
+
         public point_of_sale()
         {
             InitializeComponent();
+
+            liveSalesViewSource =
+              (CollectionViewSource)FindResource(nameof(liveSalesViewSource));
+
             InitDB();
-
-            dbgActiveSaleInfo.ItemsSource = _activeSale;
-
             NewSale();
         }
 
@@ -37,8 +41,13 @@ namespace mainModules
         {
             _activeSaleTotal = 0;
             _activeSale.Clear();
-            dbgActiveSaleInfo.AutoGenerateColumns = true;
-            dbgActiveSaleInfo.Columns.Clear();
+
+            dbgActiveSaleInfo.Items.Refresh();
+           
+
+            // bind to the source
+            liveSalesViewSource.Source =
+                _activeSale;
 
             CurrentSaleID = databaseAPI.utilities.RandomUniqueID();
 
@@ -85,6 +94,7 @@ namespace mainModules
             currLineItem.QTY = _qty;
             currLineItem.Price = _price;
             currLineItem.Description = _descr;
+            currLineItem.LineTotal = _price * _qty;
 
             _activeSale.Add(currLineItem);
             dbgActiveSaleInfo.ItemsSource = null;

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:mainModules"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
 
         <ResourceDictionary>
@@ -11,8 +12,8 @@
                 <ResourceDictionary Source="/Styles/darkButtonSmall.xaml"/>
                 <ResourceDictionary Source="/Styles/darkEdit.xaml"/>
                 <ResourceDictionary Source="/Styles/darkLabel.xaml"/>
-                <ResourceDictionary Source="/Styles/darkWindow.xaml"/>
                 <ResourceDictionary Source="/Styles/darkDataGrid.xaml"/>
+                <ResourceDictionary Source="/Styles/darkTabControl.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using securityAPI;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace mainModules
@@ -22,7 +23,7 @@ namespace mainModules
         {
             InitializeComponent();
             InitDB();
-            //CheckUserAuth();
+            CheckUserAuth();
 
         }
 
@@ -55,13 +56,22 @@ namespace mainModules
         {
             //Ref: https://learn.microsoft.com/en-us/ef/core/get-started/wpf#add-code-that-handles-data-interaction
 
-            if (Directory.Exists(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db")))
+            string dbLocation = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db");
+            if ((!Directory.Exists(dbLocation)) || (Directory.GetFiles(dbLocation).Length < 1))
             {
-                Directory.CreateDirectory(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db"));
+                Directory.CreateDirectory(dbLocation);
+                //This checks if all tables are created, else creates them
+                _mainContext.Database.EnsureCreated();
+                CreateDefaultAccount();
             }
 
-            //This checks if all tables are created, else creates them
-            _mainContext.Database.EnsureCreated();
+        }
+
+        private void CreateDefaultAccount()
+        {
+            //This is ran on first run.Used to create default admin account
+            frmUser newUserForm = new frmUser();
+            newUserForm.ShowDialog();
         }
 
         #endregion

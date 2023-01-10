@@ -38,7 +38,7 @@
 
                 <Button Style="{StaticResource darkButton}" x:Name="btnPOS" Content="Point of Sale" Click="btnPOS_Click"/>
                 <Button Style="{StaticResource darkButton}" x:Name="btnStock" Content="Stock" Click="btnStock_Click"/>
-                <Button Style="{StaticResource darkButton}" x:Name="btnSalesndReports" Content="Reports"/>
+                <!--<Button Style="{StaticResource darkButton}" x:Name="btnSalesndReports" Content="Reports"/>-->
                 <Button Style="{StaticResource darkButton}" x:Name="btnSettings" Content="Settings" Click="btnSettings_Click"/>
                 <Button Style="{StaticResource darkButton}" x:Name="btnLogout" Content="Logout" Click="btnLogout_Click"/>
 

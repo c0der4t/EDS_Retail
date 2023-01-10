@@ -1,0 +1,61 @@
+﻿<Window x:Class="mainModules.frmUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mainModules"
+        mc:Ignorable="d"
+        Title="User Setup" Height="350" Width="420">
+
+    <Border
+                             BorderBrush="#F8F8F8" 
+                             BorderThickness="1"
+                             Background="#333F44">
+
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <TextBlock Text="First Name"/>
+                <TextBox Style="{StaticResource darkEdit}" x:Name="edtFirstName"/>
+
+                <TextBlock Text="Last Name" Margin="0,7,0,0"/>
+                <TextBox Style="{StaticResource darkEdit}" x:Name="edtLastName"/>
+                <TextBlock Text="Email" Margin="0,7,0,0"/>
+                <TextBox Style="{StaticResource darkEdit}" x:Name="edtEmail"/>
+                <TextBlock Text="Username" Margin="0,7,0,0"/>
+                <TextBox Style="{StaticResource darkEdit}" x:Name="edtUsername"/>
+                <TextBlock Text="Password" Margin="0,7,0,0"/>
+                <PasswordBox x:Name="edtUserPassword"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <CheckBox Content="Change password on next login" Margin="2,2,2,2" x:Name="chckChangePassw" Visibility="Hidden"/>
+                    <CheckBox Content="Administrator" Margin="5,2,2,2" x:Name="chckAdmin"/>
+                    <CheckBox Content="Allow Login" Margin="5,2,2,2" x:Name="chckCanLogin"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button x:Name="btnPostUserSetup" Content="Save"
+                                        Style="{StaticResource darkButton}" Click="btnPostUserSetup_Click"/>
+                    <Button x:Name="btnCancelUserSetup" Content="Cancel"
+                                        Style="{StaticResource darkButton}" IsCancel="True"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+</Window>

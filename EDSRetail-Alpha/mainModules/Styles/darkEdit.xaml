@@ -33,7 +33,10 @@
 
             <Setter Property="Margin" Value="7,1,7,1"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="MinWidth" Value="75"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Foreground" Value="#1A1A1B"/>
             <Setter Property="Background" Value="#F8F8F8"/>
             <Setter Property="FontFamily" Value="Inter"/>
