@@ -1,6 +1,6 @@
 # EDS Retail
 
-### Active development on [Alpha-dev branch](https://github.com/ekronds/EDS_Retail/tree/alpha-de)
+### Active development on [beta-dev branch](https://github.com/ekronds/EDS_Retail/tree/beta-dev)
 ### [See detailed project items/plans here](https://github.com/orgs/ekronds/projects/1/views/1)
 ## 🤷‍♂️ What is EDS Retail?
 
