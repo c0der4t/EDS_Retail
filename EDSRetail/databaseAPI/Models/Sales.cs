@@ -10,6 +10,7 @@
         public string SaleID { get; set; }
         public string SaleIDHASH { get; set; }
         public int ID { get; set; }
+        public DateTime SaleDateTime { get; set; }
 
     }
 }

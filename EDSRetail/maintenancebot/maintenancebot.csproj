@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <BaseOutputPath>..\Build\</BaseOutputPath>
+    <ApplicationIcon>imgRobotArm.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\imgRobotArm.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="imgRobotArm.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mainModules\mainModules.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\imgRobotArm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="tasklibrary">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Styles\darkButton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>

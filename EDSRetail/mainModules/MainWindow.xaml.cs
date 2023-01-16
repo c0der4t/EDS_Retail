@@ -1,5 +1,6 @@
 ﻿using mainModules.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using securityAPI;
 using System;
 using System.IO;
@@ -15,7 +16,7 @@ namespace mainModules
     {
         public string appLocation { get; set; }
         public bool isUserAuthenticated { get; set; }
-
+        // test this
         private readonly _dbContext _mainContext =
             new _dbContext();
 
@@ -64,6 +65,8 @@ namespace mainModules
                 _mainContext.Database.EnsureCreated();
                 CreateDefaultAccount();
             }
+
+
 
         }
 
