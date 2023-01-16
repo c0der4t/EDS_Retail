@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mainModules", "mainModules\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "databaseAPI", "databaseAPI\databaseAPI.csproj", "{84B608D7-75E9-42BB-88FD-33569B61568E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "securityAPI", "securityAPI\securityAPI.csproj", "{A17D5A29-1038-4946-B762-0BD76EC143CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "securityAPI", "securityAPI\securityAPI.csproj", "{A17D5A29-1038-4946-B762-0BD76EC143CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenancebot", "maintenancebot\maintenancebot.csproj", "{2DDC42E0-6E99-44B2-AF88-2D45C861EE12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMaintenanceTask", "devtools\GenerateMaintenanceTask\GenerateMaintenanceTask.csproj", "{657897B4-023E-42C9-BC16-67F208AAE484}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A17D5A29-1038-4946-B762-0BD76EC143CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DDC42E0-6E99-44B2-AF88-2D45C861EE12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DDC42E0-6E99-44B2-AF88-2D45C861EE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DDC42E0-6E99-44B2-AF88-2D45C861EE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DDC42E0-6E99-44B2-AF88-2D45C861EE12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{657897B4-023E-42C9-BC16-67F208AAE484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657897B4-023E-42C9-BC16-67F208AAE484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657897B4-023E-42C9-BC16-67F208AAE484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657897B4-023E-42C9-BC16-67F208AAE484}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,3 @@
+taskname,actionname,description,command
+Upgrade,Add Column LineTotal,Upgrades the application database. This is required after a version upgrade,QUxURVIgVEFCTEUgU2FsZXMgQUREIENPTFVNTiBMaW5lVG90YWwgcmVhbCBOVUxM
+Upgrade,Add Column SaleDateTime,Upgrades the application database. This is required after a version upgrade,QUxURVIgVEFCTEUgU2FsZXMgQUREIENPTFVNTiBTYWxlRGF0ZVRpbWUgdGV4dA==

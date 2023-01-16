@@ -1,0 +1,55 @@
+﻿<Window x:Class="GenerateMaintenanceTask.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenerateMaintenanceTask"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="5,5,5,5">
+
+            <TextBlock Text="LibraryFile"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="edtLibraryFilePath" Text="Upgrade" Margin="0,0,0,10"
+                         IsReadOnly="True"/>
+                <Button x:Name="btnFindLibraryFile" Content="..." Click="btnFindLibraryFile_Click"
+                        HorizontalAlignment="Right"/>
+            </StackPanel>
+            
+            <TextBlock Text="TaskName"/>
+            <TextBox x:Name="edtTaskName" Text="Upgrade" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Describe step (ex; Add LineTotal column to Sales)"/>
+            <TextBox x:Name="edtActionName" Margin="0,0,0,10"/>
+
+            <TextBlock Text="End user description of task"/>
+            <TextBox x:Name="edtDescr" 
+                     Text="Upgrades the application database. This is required after a version upgrade"
+                     Margin="0,0,0,10"/>
+
+            <TextBlock Text="SQL Query to action"/>
+        </StackPanel>
+
+        <TextBox x:Name="edtCommand" TextWrapping="WrapWithOverflow" Grid.Column="1" Grid.Row="2"/>
+
+        <Button x:Name="btnAddtoLibrary" Content="Add to Task Library"
+                Grid.Row="3" Grid.Column="1" Click="btnAddtoLibrary_Click"/>
+
+    </Grid>
+</Window>

@@ -45,19 +45,27 @@ namespace mainModules
         {
             using (var _localcontextUsers = new UserContext())
             {
-                var userItem = _localcontextUsers.Users
-                           .Single(x => x.Username == edtLoginUsername.Text);
-
-                if (securityAPI.Decryption.VerifyStringAgainstHash(edtLoginPassword.Password, userItem.Password))
+                try
                 {
-                    authToken.AuthorizeUser(userItem.ID, userItem.Username, userItem.FirstName);
-                    Close();
+                    var userItem = _localcontextUsers.Users
+                                               .Single(x => x.Username == edtLoginUsername.Text);
+
+                    if (securityAPI.Decryption.VerifyStringAgainstHash(edtLoginPassword.Password, userItem.Password))
+                    {
+                        authToken.AuthorizeUser(userItem.ID, userItem.Username, userItem.FirstName);
+                        Close();
+                    }
+                    else
+                    {
+                        throw new Exception("Invalid Password");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-
                     FailedLoginCounter += 1;
                     authToken.DeauthorizeCurrentUser();
+
+
                     if (FailedLoginCounter >= 3)
                     {
                         MessageBox.Show("Multiple failed logins detected. Closing application");
@@ -65,7 +73,16 @@ namespace mainModules
                     }
                     else
                     {
-                        MessageBox.Show($"Login failed ({FailedLoginCounter})");
+                        if (e.ToString().Contains("Invalid Password"))
+                        {
+                            MessageBox.Show($"Login failed - Invalid Password");
+                        }
+
+                        if (e.ToString().Contains("Sequence contains no elements"))
+                        {
+                            MessageBox.Show($"Login failed - User does not exist");
+                        }
+                        
                     }
 
                 }

@@ -21,6 +21,7 @@ namespace mainModules
 
         private List<databaseAPI.Models.Sale> _activeSale;
         string CurrentSaleID;
+        DateTime ActiveSale_DateTime = new DateTime();
         private SalesContext _contextSales =
         new SalesContext();
 
@@ -50,6 +51,7 @@ namespace mainModules
                 _activeSale;
 
             CurrentSaleID = databaseAPI.utilities.RandomUniqueID();
+            ActiveSale_DateTime = DateTime.Now;
 
             UpdateActiveSaleTotal(0);
             NewLineItem();
@@ -87,7 +89,7 @@ namespace mainModules
         {
             var currLineItem = new databaseAPI.Models.Sale();
 
-
+            currLineItem.SaleDateTime = ActiveSale_DateTime;
             currLineItem.SaleID = _saleID;
             currLineItem.SaleIDHASH = GetHashFromString(_saleID);
             currLineItem.SKU = _sku;
