@@ -5,7 +5,7 @@ namespace mainModules
 {
     public class AuditContext : DbContext
     {
-        string DBDirectory = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory,"db");
+        string DBDirectory = databaseAPI.utilities.GetDatabasePath();
 
 
         public DbSet<databaseAPI.Models.SystemAudit> systemAudits { get; set; }
