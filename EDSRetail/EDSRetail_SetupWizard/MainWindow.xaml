@@ -1,0 +1,91 @@
+﻿<Window x:Class="EDSRetail_SetupWizard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EDSRetail_SetupWizard"
+        mc:Ignorable="d"
+        Title="EDS Retail Setup Wizard" Height="450" Width="800"
+        MaxHeight="450" MaxWidth="800">
+
+
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"
+                    x:Name="tbctrlWizard" SelectionChanged="tbctrlWizard_SelectionChanged">
+            <TabItem x:Name="tabitmDatabase" Header="Database Setup"  >
+                <StackPanel Orientation="Vertical" Margin="10,10,10,10">
+                    <TextBlock Text="Database Save Location" 
+                               Foreground="Black" FontWeight="SemiBold"
+                               FontSize="14"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="edtDBLocationPath" MinWidth="400" MaxWidth="400" 
+                                 Text="%appdata%\EDSRetail\db" FontSize="14" VerticalContentAlignment="Center"/>
+                        <Button Content="BROWSE" Style="{StaticResource darkButtonSmall}"
+                                Click="BrowseForDB"/>
+                    </StackPanel>
+                    <TextBlock x:Name="lblDBTabDescr" 
+                               Foreground="Black" TextWrapping="WrapWithOverflow"
+                               FontSize="14"/>
+                </StackPanel>
+
+
+            </TabItem>
+
+            <TabItem Header="Admin User" Visibility="Hidden">
+
+            </TabItem>
+
+            <TabItem x:Name="tbitmMisc" Header="Other Settings" Visibility="Hidden">
+                <ScrollViewer>
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="5"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1">
+
+                            <StackPanel Orientation="Horizontal"/>
+                        </StackPanel>
+
+                    </Grid>
+
+                </ScrollViewer>
+            </TabItem>
+
+        </TabControl>
+
+        <Button Content="Next >" x:Name="btnNext" 
+                HorizontalAlignment="Right" 
+                Grid.Row="2" Grid.Column="1"
+                Style="{StaticResource darkButtonSmall}"
+                Click="btnNext_Click"/>
+
+    </Grid>
+
+</Window>

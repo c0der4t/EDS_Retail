@@ -1,0 +1,23 @@
+﻿<Application x:Class="EDSRetail_SetupWizard.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EDSRetail_SetupWizard"
+             StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/darkButton.xaml"/>
+                <ResourceDictionary Source="/Styles/darkButtonSmall.xaml"/>
+                <ResourceDictionary Source="/Styles/darkEdit.xaml"/>
+                <ResourceDictionary Source="/Styles/darkLabel.xaml"/>
+                <ResourceDictionary Source="/Styles/darkDataGrid.xaml"/>
+                <ResourceDictionary Source="/Styles/darkTabControl.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Application.Resources>
+
+
+</Application>
