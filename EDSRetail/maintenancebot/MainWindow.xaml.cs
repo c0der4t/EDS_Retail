@@ -1,22 +1,14 @@
 ﻿using mainModules.Models;
+using databaseAPI;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace maintenancebot
 {
@@ -50,7 +42,7 @@ namespace maintenancebot
         {
             //Ref: https://learn.microsoft.com/en-us/ef/core/get-started/wpf#add-code-that-handles-data-interaction
 
-            string dbLocation = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db");
+            string dbLocation = databaseAPI.utilities.GetDatabasePath();
 
             if ((!Directory.Exists(dbLocation)) || (Directory.GetFiles(dbLocation).Length < 1))
             {

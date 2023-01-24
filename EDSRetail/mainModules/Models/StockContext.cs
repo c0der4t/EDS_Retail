@@ -5,7 +5,7 @@ namespace mainModules.Models
 {
     public class StockContext : DbContext
     {
-        string DBDirectory = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db");
+        string DBDirectory = databaseAPI.utilities.GetDatabasePath();
 
 
         public DbSet<databaseAPI.Models.Stock> Stock { get; set; }

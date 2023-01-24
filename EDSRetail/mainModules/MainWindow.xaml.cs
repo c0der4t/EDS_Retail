@@ -25,6 +25,7 @@ namespace mainModules
             InitializeComponent();
             InitDB();
             CheckUserAuth();
+            
 
         }
 
@@ -57,7 +58,7 @@ namespace mainModules
         {
             //Ref: https://learn.microsoft.com/en-us/ef/core/get-started/wpf#add-code-that-handles-data-interaction
 
-            string dbLocation = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "db");
+            string dbLocation = databaseAPI.utilities.GetDatabasePath();
             if ((!Directory.Exists(dbLocation)) || (Directory.GetFiles(dbLocation).Length < 1))
             {
                 Directory.CreateDirectory(dbLocation);

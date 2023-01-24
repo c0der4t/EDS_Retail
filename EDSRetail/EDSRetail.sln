@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "securityAPI", "securityAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "maintenancebot", "maintenancebot\maintenancebot.csproj", "{2DDC42E0-6E99-44B2-AF88-2D45C861EE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateMaintenanceTask", "devtools\GenerateMaintenanceTask\GenerateMaintenanceTask.csproj", "{657897B4-023E-42C9-BC16-67F208AAE484}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateMaintenanceTask", "devtools\GenerateMaintenanceTask\GenerateMaintenanceTask.csproj", "{657897B4-023E-42C9-BC16-67F208AAE484}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDSRetail_SetupWizard", "EDSRetail_SetupWizard\EDSRetail_SetupWizard.csproj", "{42F14338-8C26-4161-AE09-B8F98E41A1AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{657897B4-023E-42C9-BC16-67F208AAE484}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{657897B4-023E-42C9-BC16-67F208AAE484}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{657897B4-023E-42C9-BC16-67F208AAE484}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F14338-8C26-4161-AE09-B8F98E41A1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F14338-8C26-4161-AE09-B8F98E41A1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F14338-8C26-4161-AE09-B8F98E41A1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F14338-8C26-4161-AE09-B8F98E41A1AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
