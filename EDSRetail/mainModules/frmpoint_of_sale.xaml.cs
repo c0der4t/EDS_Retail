@@ -1,4 +1,5 @@
-﻿using mainModules.Models;
+﻿using databaseAPI.Models;
+using mainModules.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -259,6 +260,21 @@ namespace mainModules
         private void btnLogout_Click(object sender, RoutedEventArgs e)
         {
             //ToDo : Show Login Window on logout click
+        }
+
+        private void btnLookupSKU_Click(object sender, RoutedEventArgs e)
+        {
+            stock_mgmt stockLookup = new stock_mgmt(true,_contextSales);
+            stockLookup.ShowDialog();
+
+
+            if (stockLookup.GetSelectedItem() != null)
+            {
+                Stock stockLookupResult = stockLookup.GetSelectedItem();
+
+                AddLinetoActiveSale(CurrentSaleID, stockLookupResult.SKU, Convert.ToDouble(edtQtyNumber.Text), stockLookupResult.SellPrice, stockLookupResult.Description);
+                NewLineItem();
+            }
         }
     }
 }

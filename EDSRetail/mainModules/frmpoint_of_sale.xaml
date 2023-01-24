@@ -138,7 +138,7 @@
                          Style="{StaticResource darkEdit}"
                          KeyDown="edtSKU_KeyDown" />
                     <Button x:Name="btnLookupSKU" Grid.Row="1" Grid.Column="1"
-                        Style="{StaticResource darkButton}">🔍</Button>
+                        Style="{StaticResource darkButton}" Click="btnLookupSKU_Click">🔍</Button>
 
                 </Grid>
 

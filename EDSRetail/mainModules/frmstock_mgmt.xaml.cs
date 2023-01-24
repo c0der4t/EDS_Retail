@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Data;
+using databaseAPI.Models;
 
 namespace mainModules
 {
@@ -16,24 +17,28 @@ namespace mainModules
     /// </summary>
     public partial class stock_mgmt : Window
     {
-        private List<string> _comments = new List<string>();
-        private static string _flatFileDelimeter = "#";
 
         private StockContext _contextStock;
 
         private CollectionViewSource stockViewSource;
 
-        public stock_mgmt()
+        public Stock selectedItem { get; set; }
+
+        public stock_mgmt(bool isLookupMode = false, SalesContext existingSalesContext = null)
         {
             InitializeComponent();
 
             stockViewSource =
                 (CollectionViewSource)FindResource(nameof(stockViewSource));
 
+                btnDeleteSelectedItem.IsEnabled = !isLookupMode;
+                btnReloadStockFile.IsEnabled = !isLookupMode;
+                btnSaveStockFile.IsEnabled = !isLookupMode;
+                dbgStock.IsReadOnly = isLookupMode;
+
         }
 
-
-        public void RefreshDataGrid()
+            public void RefreshDataGrid()
         {
             dbgStock.Items.Refresh();
         }
@@ -122,5 +127,15 @@ namespace mainModules
             InitDB();
         }
 
+        private void dbgStock_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            selectedItem = dbgStock.SelectedItem as Stock;
+            this.Close();
+        }
+
+        public Stock GetSelectedItem()
+        {
+            return selectedItem;
+        }
     }
 }
