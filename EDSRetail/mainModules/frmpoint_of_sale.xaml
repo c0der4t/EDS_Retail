@@ -158,10 +158,11 @@
 
 
                     <TextBox x:Name="edtPrice" Grid.Row="1" Grid.Column="0" 
-                         Style="{StaticResource darkEdit}"/>
+                         Style="{StaticResource darkEdit}" IsReadOnly="True"/>
 
-                    <Button x:Name="btnChangePrice" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Content="Change" Click="btnChangePrice_Click"
-                        Style="{StaticResource darkButton}"/>
+                    <Button x:Name="btnChangePrice" Grid.Row="1" Grid.Column="1" 
+                            HorizontalAlignment="Left" Content="Change" 
+                            Click="btnChangePrice_Click" Style="{StaticResource darkButton}"/>
 
                 </Grid>
 
@@ -179,7 +180,7 @@
                     <TextBlock Text="Description" Grid.Row="0"/>
                     <TextBox x:Name="edtProductDescr" Grid.Row="1" Height="auto"
                          Style="{StaticResource darkEdit}" VerticalContentAlignment="Top" TextWrapping="Wrap" Padding="2,0,2,0"
-                             />
+                             IsReadOnly="True"/>
 
                 </Grid>
 

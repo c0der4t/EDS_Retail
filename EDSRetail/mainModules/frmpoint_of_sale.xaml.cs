@@ -1,6 +1,7 @@
 ﻿using databaseAPI.Models;
 using mainModules.Models;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -106,6 +107,52 @@ namespace mainModules
             UpdateActiveSaleTotal(_price * _qty);
         }
 
+        private void VoidLineAt(int LineIndexNumber , bool NewLineItemAfterVoid = true)
+        {
+            double voidPrice = _activeSale[LineIndexNumber].Price;
+            double voidQTY = _activeSale[LineIndexNumber].QTY;
+
+            _activeSale.RemoveAt(LineIndexNumber);
+            dbgActiveSaleInfo.ItemsSource = null;
+            dbgActiveSaleInfo.ItemsSource = _activeSale;
+
+            UpdateActiveSaleTotal(-(voidPrice * voidQTY));
+
+            if (NewLineItemAfterVoid)
+            {
+                NewLineItem();
+            }
+        }
+
+        private bool ScanSKU(string ScannedSKU,bool CustomSellPrice = false)
+        {
+            try
+            {
+
+                using (var _localcontextStock = new StockContext())
+                {
+                    var stockItem = _localcontextStock.Stock
+                        .Single(x => x.SKU == ScannedSKU);
+
+                    AddLinetoActiveSale(CurrentSaleID, stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), CustomSellPrice ? Convert.ToDouble(edtPrice.Text) : stockItem.SellPrice, stockItem.Description);
+                }
+
+                NewLineItem();
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show($"SKU not found.\n{ScannedSKU}");
+                return false;
+
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show($"The price may only contain numeric characters","Invalid Input",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                return false;
+            }
+
+        }
 
         /// <summary>
         /// Returns SHA256 hash of a given string.
@@ -135,24 +182,7 @@ namespace mainModules
             
             if (e.Key == Key.Enter)
             {
-                try
-                {
-                    
-                    using (var _localcontextStock = new StockContext())
-                    {
-                        var stockItem = _localcontextStock.Stock
-                            .Single(x => x.SKU == edtSKU.Text);
-
-                        AddLinetoActiveSale(CurrentSaleID, stockItem.SKU, Convert.ToDouble(edtQtyNumber.Text), stockItem.SellPrice, stockItem.Description);
-                    }
-
-                    NewLineItem();
-
-                }
-                catch (InvalidOperationException)
-                {
-                    MessageBox.Show($"SKU not found.\n{edtSKU.Text}");
-                }
+                ScanSKU(edtSKU.Text);
             }
 
         }
@@ -174,10 +204,66 @@ namespace mainModules
 
         private void btnChangePrice_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("The price may not be changed at this time");
+            if (dbgActiveSaleInfo.SelectedItem != null)
+            {
+                var confirmPriceEdit = MessageBox.Show("Enable price edit for this line item?",
+                "Confirm Price Edit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (confirmPriceEdit == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Sale selectedLineItem = dbgActiveSaleInfo.SelectedItem as Sale;
+
+                        edtQtyNumber.Text = selectedLineItem.QTY.ToString();
+                        edtSKU.Text = selectedLineItem.SKU;
+                        edtPrice.Text = selectedLineItem.Price.ToString();
+                        edtProductDescr.Text = selectedLineItem.Description;
+
+                        edtPrice.IsReadOnly = false;
+                        edtSKU.IsReadOnly = true;
+                        btnChangePrice.Content = "Save";
+                        btnChangePrice.Click -= btnChangePrice_Click;
+                        btnChangePrice.Click += btnChangePrice_Save_Click;
+                    }
+                    catch (Exception priceEditEx)
+                    {
+                        edtPrice.IsReadOnly = true;
+                        btnChangePrice.Content = "Change";
+                        btnChangePrice.Click -= btnChangePrice_Save_Click;
+                        btnChangePrice.Click += btnChangePrice_Click;
+
+                        MessageBox.Show($"Unable to change price\n" +
+                            $"[Error: {priceEditEx.Message}]", "Error: Price Change", MessageBoxButton.OK
+                            , MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        VoidLineAt(dbgActiveSaleInfo.SelectedIndex,false);
+                    }
+
+
+                }
+            }
         }
 
-        private void btnProcess_Click(object sender, RoutedEventArgs e)
+        private void btnChangePrice_Save_Click(object sender, RoutedEventArgs e)
+        {
+            //ToDo : Need to load the regional settings here so it differentiates between
+            // decimal and thousands
+            edtPrice.Text = edtPrice.Text.Replace(",",".");
+
+            if (ScanSKU(edtSKU.Text, true))
+            {
+                edtPrice.IsReadOnly = true;
+                edtSKU.IsReadOnly = false;
+                btnChangePrice.Content = "Change";
+                btnChangePrice.Click -= btnChangePrice_Save_Click;
+                btnChangePrice.Click += btnChangePrice_Click;
+            }
+        }
+
+            private void btnProcess_Click(object sender, RoutedEventArgs e)
         {
             PostSaletoDB(_activeSale);
             NewSale();
@@ -244,16 +330,7 @@ namespace mainModules
 
             if (VoidLine == MessageBoxResult.Yes)
             {
-                double voidPrice = _activeSale[LineNum].Price;
-                double voidQTY = _activeSale[LineNum].QTY;
-
-                _activeSale.RemoveAt(LineNum);
-                dbgActiveSaleInfo.ItemsSource = null;
-                dbgActiveSaleInfo.ItemsSource = _activeSale;
-
-                UpdateActiveSaleTotal(-(voidPrice * voidQTY));
-
-                NewLineItem();
+                VoidLineAt(LineNum);
             }
         }
 
