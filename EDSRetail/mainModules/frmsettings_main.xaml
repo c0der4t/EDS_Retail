@@ -28,8 +28,29 @@
         </Grid.ColumnDefinitions>
 
         <TabControl Grid.Row="1" Grid.Column="1">
+            
             <TabItem x:Name="tbitmGeneral" Header="General"  >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer Grid.Row="0" Grid.Column="0">
+                        
+                        <StackPanel x:Name="stckpnlGeneral">
+                        </StackPanel>
+
+                    </ScrollViewer>
+
+                    <RichTextBox Grid.Column="1" Grid.Row="0"
+                               x:Name="redtSettingDescr"/>
+
+                </Grid>
             </TabItem>
 
             <TabItem Header="Trade">

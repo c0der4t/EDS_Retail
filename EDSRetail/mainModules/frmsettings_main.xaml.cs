@@ -29,8 +29,6 @@ namespace mainModules
 
         private CollectionViewSource userViewSource;
 
-
-
         public frmsettings_main()
         {
             InitializeComponent();
@@ -38,8 +36,61 @@ namespace mainModules
             userViewSource =
                (CollectionViewSource)FindResource(nameof(userViewSource));
 
-
             InitDB();
+            LoadSettings();
+        }
+
+        private void LoadSettings()
+        {
+
+            using (var _contextSettings = new SettingsContext())
+            {
+                var settingList = _contextSettings.Settings.ToArray();
+
+                foreach (var setting in settingList)
+                {
+                    switch (setting.varType)
+                    {
+                        case "string":
+                            TextBox newEdt = new TextBox();
+                            newEdt.Text = setting.Value;
+                            newEdt.Name = $"s{setting.Name}";
+                            newEdt.ToolTip = setting.Description;
+                            newEdt.MouseEnter += new MouseEventHandler(setting_OnHover);
+                            stckpnlGeneral.Children.Add(newEdt);
+                            break;
+                        case "float":
+                            TextBox newFloatEdt = new TextBox();
+                            newFloatEdt.Text = setting.Value;
+                            newFloatEdt.Name = $"f{setting.Name}";
+                            newFloatEdt.ToolTip = setting.Description;
+                            newFloatEdt.MouseEnter += new MouseEventHandler(setting_OnHover);
+                            stckpnlGeneral.Children.Add(newFloatEdt);
+                            break;
+                        case "bool":
+                            CheckBox newChckbx = new CheckBox();
+                            newChckbx.Content = setting.Name;
+                            newChckbx.IsChecked = setting.Value.ToLower() == "true";
+                            newChckbx.Name = $"b{setting.Name}";
+                            newChckbx.ToolTip = setting.Description;
+                            newChckbx.MouseEnter += new MouseEventHandler(setting_OnHover);
+                            stckpnlGeneral.Children.Add(newChckbx);
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+
+
+        }
+
+        private void setting_OnHover(object sender, MouseEventArgs e)
+        {
+            var obj = (Control)sender;
+            redtSettingDescr.Document.Blocks.Clear();
+            redtSettingDescr.AppendText(obj.ToolTip.ToString());
         }
 
 
@@ -51,7 +102,6 @@ namespace mainModules
             userViewSource.Source =
                 _contextUser.Users.Local.ToObservableCollection();
         }
-
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {

@@ -1,11 +1,12 @@
-﻿using System.Diagnostics;
+﻿using databaseAPI.Models;
+using System.Diagnostics;
 using System.Security.Cryptography;
 
 namespace databaseAPI
 {
     public static class utilities
     {
-
+       
         public static string RandomUniqueID()
         {
             //Get date and time to second
