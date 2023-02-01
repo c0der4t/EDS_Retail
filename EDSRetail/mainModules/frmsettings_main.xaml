@@ -33,6 +33,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -49,6 +50,12 @@
 
                     <RichTextBox Grid.Column="1" Grid.Row="0"
                                x:Name="redtSettingDescr"/>
+
+                    <Button x:Name="btnGnrlSave"
+                        Grid.Row="1" Grid.Column="0"
+                            Content="Save"
+                            Style="{StaticResource darkButtonSmall}"
+                           Click="btnGnrlSave_Click" />
 
                 </Grid>
             </TabItem>

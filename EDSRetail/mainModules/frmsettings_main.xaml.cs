@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using securityAPI;
+using databaseAPI.Models;
 
 namespace mainModules
 {
@@ -54,25 +55,28 @@ namespace mainModules
                         case "string":
                             TextBox newEdt = new TextBox();
                             newEdt.Text = setting.Value;
+                            newEdt.Uid = setting.ID.ToString() ;
                             newEdt.Name = $"s{setting.Name}";
-                            newEdt.ToolTip = setting.Description;
+                            newEdt.Tag = setting.Description;
                             newEdt.MouseEnter += new MouseEventHandler(setting_OnHover);
                             stckpnlGeneral.Children.Add(newEdt);
                             break;
                         case "float":
                             TextBox newFloatEdt = new TextBox();
                             newFloatEdt.Text = setting.Value;
+                            newFloatEdt.Uid = setting.ID.ToString();
                             newFloatEdt.Name = $"f{setting.Name}";
-                            newFloatEdt.ToolTip = setting.Description;
+                            newFloatEdt.Tag = setting.Description;
                             newFloatEdt.MouseEnter += new MouseEventHandler(setting_OnHover);
                             stckpnlGeneral.Children.Add(newFloatEdt);
                             break;
                         case "bool":
                             CheckBox newChckbx = new CheckBox();
                             newChckbx.Content = setting.Name;
+                            newChckbx.Uid = setting.ID.ToString();
                             newChckbx.IsChecked = setting.Value.ToLower() == "true";
                             newChckbx.Name = $"b{setting.Name}";
-                            newChckbx.ToolTip = setting.Description;
+                            newChckbx.Tag = setting.Description;
                             newChckbx.MouseEnter += new MouseEventHandler(setting_OnHover);
                             stckpnlGeneral.Children.Add(newChckbx);
                             break;
@@ -86,11 +90,58 @@ namespace mainModules
 
         }
 
+        private void SaveSettings()
+        {
+            //Build a list of all components found in the settings panel
+            //Loop through each component
+            //Update each entry in the DB using ID
+
+            IDictionary<string,string> settingComponentValues= new Dictionary<string,string>();
+
+            foreach (Control singleComponent in stckpnlGeneral.Children)
+            {
+                switch (singleComponent.Name.ToLower()[0])
+                {
+                    case 's':
+                        TextBox txtbx = singleComponent as TextBox;
+                        settingComponentValues.Add(txtbx.Name.Substring(1),txtbx.Text);
+                        Debug.WriteLine(txtbx.Name.Substring(1));
+                        break;
+
+                    case 'f':
+                        TextBox ftxtbx = singleComponent as TextBox;
+                        settingComponentValues.Add(ftxtbx.Name.Substring(1), ftxtbx.Text);
+                        break;
+
+                    case 'b':
+                        CheckBox ChckBx = singleComponent as CheckBox;
+                        settingComponentValues.Add(ChckBx.Name.Substring(1), ChckBx.IsChecked ?? false ? "true" : "false");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            SettingsContext _contextSettings = new SettingsContext();
+
+            foreach (var settingInDB in _contextSettings.Settings)
+            {
+                string CurrVal;
+                settingComponentValues.TryGetValue(settingInDB.Name, out CurrVal);
+                settingInDB.Value = CurrVal;
+
+            }
+
+            _contextSettings.SaveChanges();
+
+        }
+
         private void setting_OnHover(object sender, MouseEventArgs e)
         {
             var obj = (Control)sender;
             redtSettingDescr.Document.Blocks.Clear();
-            redtSettingDescr.AppendText(obj.ToolTip.ToString());
+            redtSettingDescr.AppendText(obj.Tag.ToString());
         }
 
 
@@ -150,6 +201,11 @@ namespace mainModules
                 user.ShowDialog();
                 RefreshUsers();
             }
+        }
+
+        private void btnGnrlSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSettings();
         }
     }
 }
