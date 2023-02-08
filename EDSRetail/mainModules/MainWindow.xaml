@@ -17,6 +17,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
@@ -27,23 +28,31 @@
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
 
-
-
-
-            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                <TextBlock x:Name="lblGreetings" Text="Welcome," 
-                       Grid.Row="1" Grid.Column="1"
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="lblGreetings" Text="Welcome," 
                        Margin="5,5,5,5" Padding="2,2,2,2"
                        FontSize="32"/>
 
-                <Button Style="{StaticResource darkButton}" x:Name="btnPOS" Content="Point of Sale" Click="btnPOS_Click"/>
-                <Button Style="{StaticResource darkButton}" x:Name="btnStock" Content="Stock" Click="btnStock_Click"/>
-                <!--<Button Style="{StaticResource darkButton}" x:Name="btnSalesndReports" Content="Reports"/>-->
-                <Button Style="{StaticResource darkButton}" x:Name="btnSettings" Content="Settings" Click="btnSettings_Click"/>
-                <Button Style="{StaticResource darkButton}" x:Name="btnLogout" Content="Logout" Click="btnLogout_Click"/>
+
+            <WrapPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                
+
+                <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource darkTileButton}" 
+                        x:Name="btnPOS"  Click="btnPOS_Click"
+                        Content="Point of Sale"
+                        Tag="/img/POS.png"/>
+
+                <Button Style="{StaticResource darkTileButton}" x:Name="btnStock" 
+                        Content="Stock" Click="btnStock_Click"
+                        Tag="/img/StockMgmt.png"/>
+                <Button Style="{StaticResource darkTileButton}" x:Name="btnSettings" 
+                        Content="Settings" Click="btnSettings_Click"
+                        Tag="/img/Settings.png"/>
+                <Button Style="{StaticResource darkTileButton}" 
+                        x:Name="btnLogout" Content="Logout" Click="btnLogout_Click"
+                        />
 
 
-            </StackPanel>
+            </WrapPanel>
 
         </Grid>
 

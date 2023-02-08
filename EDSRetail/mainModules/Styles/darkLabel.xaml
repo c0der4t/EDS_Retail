@@ -4,7 +4,7 @@
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Inter"/>
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
 
 </ResourceDictionary>

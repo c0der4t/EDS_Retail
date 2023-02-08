@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\POS.png" />
+    <None Remove="img\Settings.png" />
+    <None Remove="img\StockMgmt.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.2" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
@@ -17,6 +23,18 @@
   <ItemGroup>
     <ProjectReference Include="..\databaseAPI\databaseAPI.csproj" />
     <ProjectReference Include="..\securityAPI\securityAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\POS.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\Settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="img\StockMgmt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Styles\darkTileButton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Styles\darkDataGrid.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

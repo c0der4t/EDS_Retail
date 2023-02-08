@@ -10,6 +10,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/darkButton.xaml"/>
                 <ResourceDictionary Source="/Styles/darkButtonSmall.xaml"/>
+                <ResourceDictionary Source="/Styles/darkTileButton.xaml"/>
                 <ResourceDictionary Source="/Styles/darkEdit.xaml"/>
                 <ResourceDictionary Source="/Styles/darkLabel.xaml"/>
                 <ResourceDictionary Source="/Styles/darkDataGrid.xaml"/>
