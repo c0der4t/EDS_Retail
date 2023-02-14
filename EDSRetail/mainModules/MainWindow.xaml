@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:mainModules"
         mc:Ignorable="d"
-        Title="EDSRetail - Navigation" Height="450" Width="500">
+        Title="EDSRetail - Navigation" Height="550" Width="750">
 
     <Border
                              BorderBrush="#F8F8F8" 
@@ -40,6 +40,10 @@
                         x:Name="btnPOS"  Click="btnPOS_Click"
                         Content="Point of Sale"
                         Tag="/img/POS.png"/>
+
+                <Button Style="{StaticResource darkTileButton}" x:Name="btnAccounts" 
+                        Content="Accounts" Click="btnAccounts_Click"
+                        />
 
                 <Button Style="{StaticResource darkTileButton}" x:Name="btnStock" 
                         Content="Stock" Click="btnStock_Click"

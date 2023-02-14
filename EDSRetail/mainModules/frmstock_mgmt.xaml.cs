@@ -54,10 +54,6 @@ namespace mainModules
 
         private void btnAddStockItem_Click(object sender, RoutedEventArgs e)
         {
-            frmstock_entry StockEntryForm = new frmstock_entry();
-            StockEntryForm.WindowTitle = "Add New Stock Item";
-            StockEntryForm.NewStockItem();
-            StockEntryForm.Show();
 
         }
 

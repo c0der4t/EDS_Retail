@@ -83,6 +83,12 @@ namespace mainModules
         #region UI Events
         //Any method that is triggered by a UI element action/event
 
+        private void btnAccounts_Click(object sender, RoutedEventArgs e)
+        {
+            frmAccountsMain _accounts_Screen = new frmAccountsMain();
+            _accounts_Screen.Show();
+        }
+
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
             frmsettings_main _settings_screen = new frmsettings_main();
@@ -110,5 +116,6 @@ namespace mainModules
 
         #endregion
 
+        
     }
 }

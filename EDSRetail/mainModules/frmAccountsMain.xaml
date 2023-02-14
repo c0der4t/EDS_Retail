@@ -1,0 +1,64 @@
+﻿<Window x:Class="mainModules.frmAccountsMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mainModules"
+        mc:Ignorable="d"
+        Title="frmAccountsMain" Height="450" Width="800">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <TabControl Grid.Row="1" Grid.Column="1">
+
+            <TabItem x:Name="tbitmDebtors" Header="Debtors"  >
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+
+                    <WrapPanel Grid.Row="1" Grid.Column="1">
+                        <Button Content="Add" Style="{StaticResource darkButtonSmall}"
+                                Click="btnAddDebtor_Click"/>
+                        <Button Content="Edit" Style="{StaticResource darkButtonSmall}"/>
+                        <Button Content="Delete" Style="{StaticResource darkButtonSmall}"/>
+                        <Button Content="Statement" Style="{StaticResource darkButtonSmall}"/>
+                        <Button Content="Payment" Style="{StaticResource darkButtonSmall}"/>
+                    </WrapPanel>
+
+                    <DataGrid Grid.Row="2" Grid.Column="1"/>
+
+                </Grid>
+            </TabItem>
+
+            <TabItem x:Name="tbitmCreditors" Header="Creditors"  >
+
+            </TabItem>
+
+        </TabControl>
+
+    </Grid>
+
+</Window>

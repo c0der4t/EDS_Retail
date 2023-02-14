@@ -1,0 +1,94 @@
+﻿<Window x:Class="mainModules.frmDebtorEntry"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:mainModules"
+        mc:Ignorable="d"
+        Title="frmDebtorEntry" Height="575" Width="700">
+
+    <Border
+                             BorderBrush="#F8F8F8" 
+                             BorderThickness="1"
+                             Background="#333F44">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="lblGreetings" Text="Balance: 0.00" 
+                       Margin="5,5,5,5" Padding="2,2,2,2"
+                       FontSize="20" HorizontalAlignment="Right"/>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2">
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Account Number"/>
+                    <TextBox IsReadOnly="True" x:Name="edtAccountNum" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Account Name"/>
+                    <TextBox IsReadOnly="False" x:Name="edtAccName" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Address"/>
+                    <TextBox IsReadOnly="False" x:Name="edtAddress" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Vat/Tax Number"/>
+                    <TextBox IsReadOnly="False" x:Name="edtVatNum" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Contact Person"/>
+                    <TextBox IsReadOnly="False" x:Name="edtContactPerson" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Contact Person Phone"/>
+                    <TextBox IsReadOnly="False" x:Name="edtContactPhone" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Contact Person Email"/>
+                    <TextBox IsReadOnly="False" x:Name="edtContactEmail" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Accounts Dep Email (Recipients of statements and invoices)"/>
+                    <TextBox IsReadOnly="False" x:Name="edtAPEmail" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Margin="0,0,0,8">
+                    <TextBlock Text="Our Account Number with Debtor"/>
+                    <TextBox IsReadOnly="False" x:Name="edtOurAccNum" Style="{StaticResource darkEdit}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                            Margin="0,10,0,0">
+                    <Button Content="Cancel" Style="{StaticResource darkButtonSmall}"
+                            />
+                    <Button Content="Save" 
+                            Style="{StaticResource darkButtonSmall}"
+                            />
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+
+    </Border>
+</Window>
