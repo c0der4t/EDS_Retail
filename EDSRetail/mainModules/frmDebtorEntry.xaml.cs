@@ -23,5 +23,33 @@ namespace mainModules
         {
             InitializeComponent();
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            databaseAPI.Models.Debtor newDebtor = new databaseAPI.Models.Debtor();
+
+            newDebtor.AccountNumber = edtAccountNum.Text;
+            newDebtor.AccName = edtAccName.Text;
+            newDebtor.Address = edtAddress.Text;
+            newDebtor.VatNum = edtVatNum.Text;
+            newDebtor.ContactPerson = edtContactPerson.Text;
+            newDebtor.ContactNumber = edtContactPhone.Text;
+            newDebtor.ContactEmail= edtContactEmail.Text;
+            newDebtor.APEmail = edtAPEmail.Text;
+            newDebtor.OurAccNum = edtOurAccNum.Text;
+            newDebtor.AccountBalance = 0;
+
+            using (DebtorContext _contextDebtor = new DebtorContext())
+            {
+                _contextDebtor.Debtors.Add(newDebtor);
+
+                _contextDebtor.SaveChanges();
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

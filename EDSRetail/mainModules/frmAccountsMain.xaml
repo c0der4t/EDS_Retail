@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="frmAccountsMain" Height="450" Width="800">
 
+
+
+    <Window.Resources>
+        <CollectionViewSource x:Key="debtorViewSource"/>
+    </Window.Resources>
+
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -48,7 +55,11 @@
                         <Button Content="Payment" Style="{StaticResource darkButtonSmall}"/>
                     </WrapPanel>
 
-                    <DataGrid Grid.Row="2" Grid.Column="1"/>
+                    <DataGrid x:Name="dbgDebtors" Grid.Row="2" Grid.Column="1" IsReadOnly="True"
+                                      AutoGenerateColumns="True" Style="{StaticResource darkDataGrid}"
+                              EnableRowVirtualization="True"
+                              ItemsSource="{Binding Source={StaticResource debtorViewSource}}"/>
+
 
                 </Grid>
             </TabItem>
