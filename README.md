@@ -1,7 +1,7 @@
 # EDS Retail
 
 ### Active development on [beta-dev branch](https://github.com/ekronds/EDS_Retail/tree/beta-dev)
-### [See detailed project items/plans here](https://github.com/orgs/ekronds/projects/1/views/1)
+
 ## 🤷‍♂️ What is EDS Retail?
 
 EDS Retail is a free and open source retail system for small / medium-sized businesses.
@@ -26,15 +26,13 @@ Since my first few weeks at that job, I've always thought about building a free 
 
 If you like the sound of a free and open source retail system, make sure to get on board. I'll be posting progress updates, challenges and code breakdowns on all the platforms I creep about. Here are the main ways to stay up to date:
 
-- [Join me live on Youtube](https://www.youtube.com/@ekronds)
+- [Join me live on Youtube](https://www.youtube.com/@c0der4t/featured)
 - Follow the project on [GitHub](https://github.com/c0der4t/EDS_Retail/)
-- [Follow our blog](https://blog.ekronds.co.za/series/eds-retail), we have a series dedicated to EDS Retail (Ensure you subscribe to the newsletter)
 - [Follow me on Twitter](https://twitter.com/EkronMonte) for the bite sized info
-- [Follow me on Polywork](https://www.polywork.com/c0der4t)
 
 
 ## 🏭 Like the idea?
 
 If you are a business / need a retail system, and you like the idea of a free and open source retail system, star / watch this repo and tweet me with the things you'd like to see 👀
 
-It's a first come, first served world. Making your voice heard at the start could help us give you the features you want quicker ❗
+It's a first come, first serve world. Making your voice heard at the start could help us give you the features you want quicker ❗
